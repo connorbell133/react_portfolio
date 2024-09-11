@@ -6,7 +6,7 @@ import MenuIcon from "@/assets/menu.svg";
 export const Header = () => {
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "#", label: "Workspace" },
+    { href: "/chat", label: "Chat" },
     { href: "/about", label: "About" },
     { href: "#", label: "Blog" },
     { href: "#", label: "Help" },
