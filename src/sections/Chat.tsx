@@ -103,14 +103,14 @@ export const Chat = () => {
 
   return (
     <section className="flex justify-center items-center bg-gray-100">
-      <div className="container w-[70%] mt-20 mb-20">
+      <div className="container min-w-[70%] md:mt-20 mb-20">
         {/* Greeting Section */}
         <div className="mb-6 mt-10 bg-gradient-to-b from-black to-[#001E80] text-transparent bg-clip-text">
           <h1 className="section-title text-start">Hi there,</h1>
           <h2 className="section-title text-start">
             What would you like to know?
           </h2>
-          <p className="section-description text-m text-start">
+          <p className="hidden md:block section-description text-m text-start">
             Use one of the most common prompts below or use your own to begin
           </p>
         </div>
