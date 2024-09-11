@@ -1,9 +1,8 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
 import ArrowRight from "@/assets/arrow-right.svg";
+import { twMerge } from "tailwind-merge";
 
-// ChatBox: Displays chat messages
-// ChatBox: Displays chat messages
 const ChatBox = ({ messages }) => {
   const chatBoxRef = useRef(null);
 
@@ -14,7 +13,7 @@ const ChatBox = ({ messages }) => {
   }, [messages]);
 
   return (
-    messages.length > 0 && ( // Conditionally render ChatBox
+    messages.length > 0 && (
       <div
         ref={chatBoxRef}
         className="w-full p-4 bg-gray-100 rounded-lg mb-4 max-h-64 overflow-y-auto "
@@ -22,9 +21,14 @@ const ChatBox = ({ messages }) => {
         {messages.map((message, index) => (
           <div
             key={index}
-            className="p-2 mb-2 bg-white text-gray-800 rounded-lg shadow-sm"
+            className={twMerge(
+              "p-2 mb-2 max-w-xs rounded-lg ",
+              message.sender === "user"
+                ? "ml-auto text-right"
+                : "mr-auto text-left"
+            )}
           >
-            {message}
+            {message.text}
           </div>
         ))}
       </div>
@@ -94,23 +98,55 @@ export const Chat = () => {
   const [inputText, setInputText] = useState("");
 
   // Function to send a message
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (inputText.trim()) {
-      setMessages((prevMessages) => [...prevMessages, inputText]);
+      const newMessage = {
+        text: inputText,
+        sender: "user",
+      };
+
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
       setInputText(""); // Clear input field after sending
+
+      try {
+        const response = await fetch("/api/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ prompt: inputText }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          const botMessage = {
+            text: data.message,
+            sender: "bot",
+          };
+
+          setMessages((prevMessages) => [...prevMessages, botMessage]);
+        } else {
+          console.error("Error generating response:", data.error);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
     }
   };
 
   return (
-    <section className="flex justify-center items-center bg-gray-100">
-      <div className="container min-w-[70%] md:mt-20 mb-20">
+    <section className="flex justify-center items-center bg-[#eeeeee]">
+      <div className="container w-[60%] min-w-[350px] md:mt-20 mb-20">
         {/* Greeting Section */}
-        <div className="mb-6 mt-10 bg-gradient-to-b from-black to-[#001E80] text-transparent bg-clip-text">
+        <div className="mt-10 bg-gradient-to-b from-black to-[#001E80] text-transparent bg-clip-text">
           <h1 className="section-title text-start">Hi there,</h1>
           <h2 className="section-title text-start">
             What would you like to know?
           </h2>
-          <p className="hidden md:block section-description text-m text-start">
+        </div>
+        <div className="w-[30%] min-w-[300px] relative mb-4">
+          <p className="hidden md:block font-semibold text-[#a7a8ae] text-start">
             Use one of the most common prompts below or use your own to begin
           </p>
         </div>
@@ -122,12 +158,12 @@ export const Chat = () => {
               key={index}
               className="w-full lg:w-[293px] flex items-start gap-4 justify-between lg:flex-col py-4 px-4 border border-[#E6E6E6] rounded-lg"
             >
-              <span className="text-[14px] text-start tracking-tighter font-medium text-[#4F4D55]">
+              <span className="text-[16px] text-start tracking-tighter font-semibold text-[#4F4D55]">
                 {prompt.text}
               </span>
-              <span className="hidden md:block content-s items-start">
+              {/* <span className="hidden md:block content-s items-start">
                 {prompt.icon}
-              </span>
+              </span> */}
             </button>
           ))}
         </div>
