@@ -67,23 +67,7 @@ function InputComponent({ inputText, setInputText, sendMessage }) {
     </div>
   );
 }
-// ChatBox: Displays chat messages
-const ChatBox = ({ messages }) => {
-  return (
-    messages.length > 0 && ( // Conditionally render ChatBox
-      <div className="w-full p-4 bg-gray-100 rounded-lg mb-4 max-h-64 overflow-y-auto">
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            className="p-2 mb-2 bg-white text-gray-800 rounded-lg shadow-sm"
-          >
-            {message}
-          </div>
-        ))}
-      </div>
-    )
-  );
-};
+
 // Main Chat Component
 export const Chat = () => {
   const [commonPrompts] = useState([
