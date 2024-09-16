@@ -16,18 +16,22 @@ const ChatBox = ({ messages }) => {
     messages.length > 0 && (
       <div
         ref={chatBoxRef}
-        className="w-full p-4 bg-gray-100 rounded-lg mb-4 max-h-64 overflow-y-auto "
+        className="w-full p-4 bg-gray-100 rounded-lg mb-4 max-h-[400px] overflow-y-auto "
       >
         {messages.map((message, index) => (
           <div
             key={index}
             className={twMerge(
-              "p-2 mb-2 max-w-xs rounded-lg ",
+              "p-2 mb-2 max-w-s rounded-lg ",
               message.sender === "user"
                 ? "ml-auto text-right"
                 : "mr-auto text-left"
             )}
           >
+            <span className="text-gray-500 text-sm">
+              {message.sender === "user" ? "You" : "Connors Assistant"}
+            </span>
+            <br />
             {message.text}
           </div>
         ))}
@@ -104,7 +108,7 @@ export const Chat = () => {
         text: inputText,
         sender: "user",
       };
-
+      console.log("Sending message:", newMessage);
       setMessages((prevMessages) => [...prevMessages, newMessage]);
       setInputText(""); // Clear input field after sending
 
@@ -135,6 +139,46 @@ export const Chat = () => {
     }
   };
 
+  // Function to send a message
+  const sendRecMessage = async (recPrompt: string) => {
+    console.log("Sending message:", recPrompt);
+    const newMessage = {
+      text: recPrompt,
+      sender: "user",
+    };
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
+    setInputText(""); // Clear input field after sending
+
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt: recPrompt }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        const botMessage = {
+          text: data.message,
+          sender: "bot",
+        };
+
+        setMessages((prevMessages) => [...prevMessages, botMessage]);
+      } else {
+        console.error("Error generating response:", data.error);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  // Handle click on recommended prompt buttons
+  const handlePromptClick = (promptText) => {
+    sendRecMessage(promptText);
+  };
+
   return (
     <section className="flex justify-center items-center bg-[#eeeeee]">
       <div className="container w-[60%] min-w-[350px] md:mt-20 mb-20">
@@ -145,28 +189,31 @@ export const Chat = () => {
             What would you like to know?
           </h2>
         </div>
-        <div className="w-[30%] min-w-[300px] relative mb-4">
-          <p className="hidden md:block font-semibold text-[#a7a8ae] text-start">
-            Use one of the most common prompts below or use your own to begin
-          </p>
-        </div>
 
-        {/* Prompt Buttons */}
-        <div className="flex flex-col lg:flex-row gap-4 mb-6 w-full justify-between">
-          {commonPrompts.map((prompt, index) => (
-            <button
-              key={index}
-              className="w-full lg:w-[293px] flex items-start gap-4 justify-between lg:flex-col py-4 px-4 border border-[#E6E6E6] rounded-lg"
-            >
-              <span className="text-[16px] text-start tracking-tighter font-semibold text-[#4F4D55]">
-                {prompt.text}
-              </span>
-              {/* <span className="hidden md:block content-s items-start">
-                {prompt.icon}
-              </span> */}
-            </button>
-          ))}
-        </div>
+        {/* Prompt Buttons - show only if there are no messages */}
+        {messages.length === 0 && (
+          <>
+            <div className="w-[30%] min-w-[300px] relative mb-4">
+              <p className="hidden md:block font-semibold text-[#a7a8ae] text-start">
+                Use one of the most common prompts below or use your own to
+                begin
+              </p>
+            </div>
+            <div className="flex flex-col lg:flex-row gap-4 mb-6 w-full justify-between">
+              {commonPrompts.map((prompt, index) => (
+                <button
+                  key={index}
+                  className="w-full lg:w-[293px] flex items-start gap-4 justify-between lg:flex-col py-4 px-4 border border-[#E6E6E6] rounded-lg"
+                  onClick={() => handlePromptClick(prompt.text)}
+                >
+                  <span className="text-[16px] text-start tracking-tighter font-semibold text-[#4F4D55]">
+                    {prompt.text}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </>
+        )}
 
         {/* ChatBox: Display chat history */}
         <ChatBox messages={messages} />

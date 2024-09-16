@@ -1,6 +1,7 @@
+"use client";
 import Image from "next/image";
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import GitHubIcon from "@/assets/github-logo.png";
 type RepoCardProps = {
   name: string;
   description: string;
@@ -44,33 +45,42 @@ const RepoCard = ({
   </div>
 );
 
-export const GithubShowcase = () => {
-  const repos = [
-    {
-      name: "JournalPal",
-      description:
-        "Talk with your AI friend through messaging to journal without opening a notebook.",
-      technologies: ["🐍 Python", "🤖 GenAI", "💡 LLM"],
-      githubLink: "https://github.com/journalpal",
-      articleLink: "https://medium.com/journalpal-article",
-    },
-    {
-      name: "CodeHelper",
-      description:
-        "A bot that helps you write code by generating snippets based on natural language.",
-      technologies: ["🖥️ JavaScript", "⚛️ React", "🧠 NLP"],
-      githubLink: "https://github.com/codehelper",
-      articleLink: "https://medium.com/codehelper-article",
-    },
-    {
-      name: "SecureGuard",
-      description:
-        "AI-powered tool for real-time security threat detection and prevention.",
-      technologies: ["🛡️ Security", "🤖 AI", "🚀 FastAPI"],
-      githubLink: "https://github.com/secureguard",
-    },
-  ];
+const repo_grabber = async () => {
+  try {
+    const response = await fetch("/api/github", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
+    const data = await response.json();
+
+    if (response.ok) {
+      console.log("Data:", data);
+      return data.repositories;
+    } else {
+      console.error("Error generating response:", data.error);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+export const GithubShowcase = () => {
+  const [repos, setRepos] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await repo_grabber();
+      if (Array.isArray(data)) {
+        setRepos(data);
+      } else {
+        console.error("Fetched data is not an array:", data);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <section className="py-24 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -86,9 +96,9 @@ export const GithubShowcase = () => {
               key={index}
               name={repo.name}
               description={repo.description}
-              technologies={repo.technologies}
-              githubLink={repo.githubLink}
-              articleLink={repo.articleLink}
+              technologies={repo.topics}
+              githubLink={repo.html_url}
+              articleLink={repo.html_url}
             />
           ))}
         </div>

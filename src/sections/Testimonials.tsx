@@ -2,69 +2,34 @@
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import GitHubIcon from "@/assets/github-logo.png";
+import Link from "next/link";
 
 // Dummy data for GitHub repositories
-const repositories = [
-  {
-    name: "Repo One",
-    commits: 120,
-    owner: "Owner One",
-    avatarUrl: "/path/to/avatar1.png", // Replace with actual paths or URLs
-  },
-  {
-    name: "Repo Two",
-    commits: 85,
-    owner: "Owner Two",
-    avatarUrl: "/path/to/avatar2.png",
-  },
-  {
-    name: "Repo Three",
-    commits: 150,
-    owner: "Owner Three",
-    avatarUrl: "/path/to/avatar3.png",
-  },
-  {
-    name: "Repo Four",
-    commits: 200,
-    owner: "Owner Four",
-    avatarUrl: "/path/to/avatar4.png",
-  },
-  {
-    name: "Repo Five",
-    commits: 95,
-    owner: "Owner Five",
-    avatarUrl: "/path/to/avatar5.png",
-  },
-  {
-    name: "Repo Six",
-    commits: 110,
-    owner: "Owner Six",
-    avatarUrl: "/path/to/avatar6.png",
-  },
-  {
-    name: "Repo Seven",
-    commits: 130,
-    owner: "Owner Seven",
-    avatarUrl: "/path/to/avatar7.png",
-  },
-  {
-    name: "Repo Eight",
-    commits: 140,
-    owner: "Owner Eight",
-    avatarUrl: "/path/to/avatar8.png",
-  },
-  {
-    name: "Repo Nine",
-    commits: 160,
-    owner: "Owner Nine",
-    avatarUrl: "/path/to/avatar9.png",
-  },
-];
+const repo_grabber = async () => {
+  try {
+    const response = await fetch("/api/github", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-const firstColumn = repositories.slice(0, 3);
-const secondColumn = repositories.slice(3, 6);
-const thirdColumn = repositories.slice(6, 9);
+    const data = await response.json();
+
+    if (response.ok) {
+      if (data.repositories.length < 12) {
+        return [...data.repositories, ...data.repositories];
+      }
+      return data.repositories;
+    } else {
+      console.error("Error generating response:", data.error);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
 
 const RepositoryColumn = (props: {
   className?: string;
@@ -86,27 +51,29 @@ const RepositoryColumn = (props: {
     >
       {[...new Array(2)].fill(0).map((_, index) => (
         <React.Fragment key={index}>
-          {props.repositories.map(({ name, commits, owner, avatarUrl }) => (
-            <div className="card" key={name}>
-              <div>{name}</div>
-              <div className="flex items-center gap-2 mt-5">
-                <Image
-                  src={avatarUrl}
-                  alt={owner}
-                  width={40}
-                  height={40}
-                  className="h-10 w-10 rounded-full"
-                />
-                <div className="flex flex-col">
-                  <div className="font-medium tracking-tight leading-5">
-                    {owner}
-                  </div>
-                  <div className="leading-5 tracking-tight">
-                    {commits} commits
+          {props.repositories.map(({ name, size, owner, html_url }) => (
+            <Link href={html_url} key={name}>
+              <div className="card" key={name}>
+                <div>{name}</div>
+                <div className="flex items-center gap-2 mt-5">
+                  <Image
+                    src={GitHubIcon}
+                    alt={owner}
+                    width={40}
+                    height={40}
+                    className="h-10 w-10 rounded-full"
+                  />
+                  <div className="flex flex-col">
+                    <div className="font-medium tracking-tight leading-5">
+                      {owner.login}
+                    </div>
+                    <div className="leading-5 tracking-tight">
+                      {size} commits
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </React.Fragment>
       ))}
@@ -115,14 +82,32 @@ const RepositoryColumn = (props: {
 );
 
 export const Testimonials = () => {
+  const [repositories, setRepos] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await repo_grabber();
+      if (Array.isArray(data)) {
+        setRepos(data);
+      } else {
+        console.error("Fetched data is not an array:", data);
+      }
+    };
+
+    fetchData();
+  }, []);
+  const firstColumn = repositories.slice(0, 3);
+  const secondColumn = repositories.slice(3, 6);
+  const thirdColumn = repositories.slice(6, 9);
+  const fourthColumn = repositories.slice(9, 12);
+
   return (
     <section className="bg-white">
-      <div className="container">
+      <div className="container py-20">
         <div className="section-heading">
           <div className="flex justify-center">
             <div className="tag">Repositories</div>
           </div>
-          <h2 className="section-title mt-5">Our Top Repositories</h2>
+          <h2 className="section-title mt-5">My Top Repositories</h2>
           <p className="section-description mt-5">
             Explore our repositories and see how many commits each has
             contributed to.
@@ -137,6 +122,11 @@ export const Testimonials = () => {
           />
           <RepositoryColumn
             repositories={thirdColumn}
+            className="hidden lg:block"
+            duration={17}
+          />
+          <RepositoryColumn
+            repositories={fourthColumn}
             className="hidden lg:block"
             duration={17}
           />
