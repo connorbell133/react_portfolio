@@ -23,8 +23,8 @@ export const AboutMeHero = () => {
           <h2 className="section-title mb-20">About Me</h2>
         </div>
         <div className="relative">
-          <div className="flex flex-row md:flex-row items-start justify-center">
-            <div className="flex flex-col justify-center items-center w-1/3">
+          <div className="flex flex-col md:flex-row items-start justify-center">
+            <div className="flex flex-col justify-center items-center w-full m:w-1/3">
               <Image
                 src={headshotImage}
                 alt="Headshot Image"
@@ -41,7 +41,7 @@ export const AboutMeHero = () => {
                 <button className="btn btn-primary">Download CV</button>
               </div>
             </div>
-            <div className="mt-5 w-2/3">
+            <div className="mt-5 sm:w-full m:w-1/2">
               <p className="text-lg text-gray-600">
                 <span>
                   Connor is a driven and skilled Software Engineer who is

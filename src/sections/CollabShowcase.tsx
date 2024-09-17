@@ -69,7 +69,7 @@ export const CollabShowcase = () => {
   ];
 
   return (
-    <section className="py-24 bg-gray-50">
+    <section className="py-24 bg-gray-50" id="collab-showcase">
       <div className="container mx-auto px-4">
         <div className="section-heading text-center">
           <h3 className="tag text-blue-500 font-medium uppercase">Showcase</h3>

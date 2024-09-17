@@ -51,13 +51,15 @@ export const Hero = () => {
           </div>
 
           {/* Right Section */}
-          <div className="md:flex-1 items-center mt-10 md:mt-0 lg:mt-6">
+          <div className="hidden md:block md:flex-1 items-center mt-10 md:mt-0 lg:mt-6">
             {sections.map((section, index) => (
               <h2
                 key={index}
-                className="text-5xl md:text-5xl font-bold tracking-tighter mt-9 text-right"
+                className="text-5xl md:text-4xl font-bold tracking-tighter mt-9 text-right"
               >
-                {section}
+                <a href={`#${section.toLowerCase().replace(/\s/g, "-")}`}>
+                  {section}
+                </a>{" "}
               </h2>
             ))}
           </div>
