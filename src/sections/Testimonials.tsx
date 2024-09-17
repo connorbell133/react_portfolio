@@ -37,13 +37,14 @@ interface Repository {
     avatar_url: string;
     starred_url: string;
   };
+  name: string;
   html_url: string;
   url: string;
   stargazers_count: number;
   watchers_count: number;
   language: string;
   topics: string[];
-
+  size: number;
   // Add other relevant fields based on the data structure
 }
 const RepositoryColumn = (props: {
@@ -66,41 +67,28 @@ const RepositoryColumn = (props: {
     >
       {[...new Array(2)].fill(0).map((_, index) => (
         <React.Fragment key={index}>
-          {props.repositories.map(
-            ({
-              id,
-              owner,
-              html_url,
-              url,
-              stargazers_count,
-              watchers_count,
-              language,
-              topics,
-            }) => (
-              <Link href={html_url} key={id}>
-                <div className="card" key={id}>
-                  <div>{owner.login}</div>
-                  <div className="flex items-center gap-2 mt-5">
-                    <Image
-                      src={GitHubIcon}
-                      alt={owner.login}
-                      width={40}
-                      height={40}
-                      className="h-10 w-10 rounded-full"
-                    />
-                    <div className="flex flex-col">
-                      <div className="font-medium tracking-tight leading-5">
-                        {owner.login}
-                      </div>
-                      <div className="leading-5 tracking-tight">
-                        {stargazers_count} stars
-                      </div>
+          {props.repositories.map(({ id, name, owner, html_url, size }) => (
+            <Link href={html_url} key={id}>
+              <div className="card" key={id}>
+                <div>{name}</div>
+                <div className="flex items-center gap-2 mt-5">
+                  <Image
+                    src={GitHubIcon}
+                    alt={owner.login}
+                    width={40}
+                    height={40}
+                    className="h-10 w-10 rounded-full"
+                  />
+                  <div className="flex flex-col">
+                    <div className="font-medium tracking-tight leading-5">
+                      {owner.login}
                     </div>
+                    <div className="leading-5 tracking-tight">{size} stars</div>
                   </div>
                 </div>
-              </Link>
-            )
-          )}
+              </div>
+            </Link>
+          ))}
         </React.Fragment>
       ))}
     </motion.div>
