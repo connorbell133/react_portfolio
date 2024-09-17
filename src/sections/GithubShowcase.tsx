@@ -2,41 +2,54 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import GitHubIcon from "@/assets/github-logo.png";
-type RepoCardProps = {
-  name: string;
-  description: string;
-  technologies: string[];
-  githubLink: string;
-  articleLink?: string;
-};
+import Link from "next/link";
 
-const RepoCard = ({
-  name,
-  description,
-  technologies,
-  githubLink,
-  articleLink,
-}: RepoCardProps) => (
+interface Repository {
+  id: number;
+  name: string;
+  owner: {
+    login: string;
+    avatar_url: string;
+    starred_url: string;
+  };
+  html_url: string;
+  url: string;
+  stargazers_count: number;
+  watchers_count: number;
+  language: string;
+  topics: string[];
+  description: string;
+  // Add other relevant fields based on the data structure
+}
+const RepoCard = (repo_temp: Repository) => (
   <div className="card p-6 bg-white rounded-lg shadow-lg max-w-sm flex flex-col justify-between transition-transform transform hover:scale-105 duration-300">
     <div>
-      <h2 className="text-2xl font-bold text-gray-900 mb-4">{name}</h2>
+      <h2 className="text-2xl font-bold text-gray-900 mb-4">
+        {repo_temp.name}
+      </h2>
       <div className="flex items-center gap-2 mb-4">
-        {technologies.map((tech, index) => (
-          <span
-            key={index}
-            className="px-3 py-1 bg-gray-100 text-sm text-gray-800 rounded-full shadow-inner"
-          >
-            {tech}
-          </span>
-        ))}
+        {Array.isArray(repo_temp.topics) && repo_temp.topics.length > 0 ? (
+          repo_temp.topics.map((tech, index) => (
+            <span
+              key={index}
+              className="px-3 py-1 bg-gray-100 text-sm text-gray-800 rounded-full shadow-inner"
+            >
+              {tech}
+            </span>
+          ))
+        ) : (
+          <div>No technologies available</div>
+        )}
       </div>
       <p className="text-gray-600 text-base leading-relaxed mb-6">
-        {description}
+        {repo_temp.description}
       </p>
     </div>
     <div className="mt-auto flex justify-between items-center pt-4">
-      <button className="btn btn-primary">View Repo</button>
-      {articleLink && (
+      <Link href={repo_temp.html_url}>
+        <button className="btn btn-primary">View Repo</button>
+      </Link>
+      {repo_temp.html_url && (
         <button className="btn btn-transparent">
           Read Article <span className="ml-1">→</span>
         </button>
@@ -68,12 +81,12 @@ const repo_grabber = async () => {
 };
 
 export const GithubShowcase = () => {
-  const [repos, setRepos] = useState([]);
+  const [repos, setRepos] = useState<Repository[]>([]);
   useEffect(() => {
     const fetchData = async () => {
       const data = await repo_grabber();
       if (Array.isArray(data)) {
-        setRepos(data);
+        setRepos(data as Repository[]); // Ensure data is typed correctly
       } else {
         console.error("Fetched data is not an array:", data);
       }
@@ -92,14 +105,7 @@ export const GithubShowcase = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
           {repos.map((repo, index) => (
-            <RepoCard
-              key={index}
-              name={repo.name}
-              description={repo.description}
-              technologies={repo.topics}
-              githubLink={repo.html_url}
-              articleLink={repo.html_url}
-            />
+            <RepoCard key={index} {...repo} />
           ))}
         </div>
       </div>

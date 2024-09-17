@@ -30,10 +30,25 @@ const repo_grabber = async () => {
     console.error("Error:", error);
   }
 };
+interface Repository {
+  id: number;
+  owner: {
+    login: string;
+    avatar_url: string;
+    starred_url: string;
+  };
+  html_url: string;
+  url: string;
+  stargazers_count: number;
+  watchers_count: number;
+  language: string;
+  topics: string[];
 
+  // Add other relevant fields based on the data structure
+}
 const RepositoryColumn = (props: {
   className?: string;
-  repositories: typeof repositories;
+  repositories: Repository[];
   duration?: number;
 }) => (
   <div className={props.className}>
@@ -51,30 +66,41 @@ const RepositoryColumn = (props: {
     >
       {[...new Array(2)].fill(0).map((_, index) => (
         <React.Fragment key={index}>
-          {props.repositories.map(({ name, size, owner, html_url }) => (
-            <Link href={html_url} key={name}>
-              <div className="card" key={name}>
-                <div>{name}</div>
-                <div className="flex items-center gap-2 mt-5">
-                  <Image
-                    src={GitHubIcon}
-                    alt={owner}
-                    width={40}
-                    height={40}
-                    className="h-10 w-10 rounded-full"
-                  />
-                  <div className="flex flex-col">
-                    <div className="font-medium tracking-tight leading-5">
-                      {owner.login}
-                    </div>
-                    <div className="leading-5 tracking-tight">
-                      {size} commits
+          {props.repositories.map(
+            ({
+              id,
+              owner,
+              html_url,
+              url,
+              stargazers_count,
+              watchers_count,
+              language,
+              topics,
+            }) => (
+              <Link href={html_url} key={id}>
+                <div className="card" key={id}>
+                  <div>{owner.login}</div>
+                  <div className="flex items-center gap-2 mt-5">
+                    <Image
+                      src={GitHubIcon}
+                      alt={owner.login}
+                      width={40}
+                      height={40}
+                      className="h-10 w-10 rounded-full"
+                    />
+                    <div className="flex flex-col">
+                      <div className="font-medium tracking-tight leading-5">
+                        {owner.login}
+                      </div>
+                      <div className="leading-5 tracking-tight">
+                        {stargazers_count} stars
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            )
+          )}
         </React.Fragment>
       ))}
     </motion.div>
@@ -82,12 +108,12 @@ const RepositoryColumn = (props: {
 );
 
 export const Testimonials = () => {
-  const [repositories, setRepos] = useState([]);
+  const [repos, setRepos] = useState<Repository[]>([]);
   useEffect(() => {
     const fetchData = async () => {
       const data = await repo_grabber();
       if (Array.isArray(data)) {
-        setRepos(data);
+        setRepos(data as Repository[]);
       } else {
         console.error("Fetched data is not an array:", data);
       }
@@ -95,10 +121,10 @@ export const Testimonials = () => {
 
     fetchData();
   }, []);
-  const firstColumn = repositories.slice(0, 3);
-  const secondColumn = repositories.slice(3, 6);
-  const thirdColumn = repositories.slice(6, 9);
-  const fourthColumn = repositories.slice(9, 12);
+  const firstColumn = repos.slice(0, 3);
+  const secondColumn = repos.slice(3, 6);
+  const thirdColumn = repos.slice(6, 9);
+  const fourthColumn = repos.slice(9, 12);
 
   return (
     <section className="bg-white">

@@ -1,10 +1,24 @@
 "use client";
-import { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import ArrowRight from "@/assets/arrow-right.svg";
 import { twMerge } from "tailwind-merge";
 
-const ChatBox = ({ messages }) => {
-  const chatBoxRef = useRef(null);
+interface ChatBoxProps {
+  messages: Array<{
+    id: string;
+    message: string;
+    sender: string;
+    text: string;
+  }>;
+}
+interface Message {
+  id: string;
+  text: string;
+  message: string; // Assuming this is an additional description or copy of text
+  sender: string;
+}
+const ChatBox: React.FC<ChatBoxProps> = ({ messages }) => {
+  const chatBoxRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (chatBoxRef.current) {
@@ -39,9 +53,17 @@ const ChatBox = ({ messages }) => {
     )
   );
 };
-
+interface InputComponentProps {
+  inputText: string;
+  setInputText: (text: string) => void;
+  sendMessage: () => void;
+}
 // InputComponent: A text input with dynamic character count and send button
-function InputComponent({ inputText, setInputText, sendMessage }) {
+function InputComponent({
+  inputText,
+  setInputText,
+  sendMessage,
+}: InputComponentProps) {
   const maxCharacters = 1000;
 
   return (
@@ -98,14 +120,16 @@ export const Chat = () => {
   ]);
 
   // State to hold the chat messages
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<Message[]>([]); // Explicitly typing messages
   const [inputText, setInputText] = useState("");
 
   // Function to send a message
   const sendMessage = async () => {
     if (inputText.trim()) {
-      const newMessage = {
+      const newMessage: Message = {
+        id: Date.now().toString(), // Generate a unique id based on timestamp or use a proper UUID
         text: inputText,
+        message: inputText, // Assuming 'message' is the same as 'text' here
         sender: "user",
       };
       console.log("Sending message:", newMessage);
@@ -124,9 +148,11 @@ export const Chat = () => {
         const data = await response.json();
 
         if (response.ok) {
-          const botMessage = {
+          const botMessage: Message = {
+            id: Date.now().toString(), // Ensure you have a function to generate unique IDs
             text: data.message,
             sender: "bot",
+            message: data.message,
           };
 
           setMessages((prevMessages) => [...prevMessages, botMessage]);
@@ -143,8 +169,10 @@ export const Chat = () => {
   const sendRecMessage = async (recPrompt: string) => {
     console.log("Sending message:", recPrompt);
     const newMessage = {
+      id: Date.now().toString(),
       text: recPrompt,
       sender: "user",
+      message: recPrompt,
     };
     setMessages((prevMessages) => [...prevMessages, newMessage]);
     setInputText(""); // Clear input field after sending
@@ -164,6 +192,8 @@ export const Chat = () => {
         const botMessage = {
           text: data.message,
           sender: "bot",
+          message: data.message,
+          id: Date.now().toString(),
         };
 
         setMessages((prevMessages) => [...prevMessages, botMessage]);
@@ -175,7 +205,7 @@ export const Chat = () => {
     }
   };
   // Handle click on recommended prompt buttons
-  const handlePromptClick = (promptText) => {
+  const handlePromptClick = (promptText: string) => {
     sendRecMessage(promptText);
   };
 
