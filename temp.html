@@ -1,0 +1,2697 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title data-rh="true">Robust LLM-Driven SQL Query Generation with Substrate.run | by Connor Bell | Exploring Rag and
+        Agentic Systems | Aug, 2024 | Medium</title>
+    <meta data-rh="true" charset="utf-8" />
+    <meta data-rh="true" name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1,maximum-scale=1" />
+    <meta data-rh="true" name="theme-color" content="#000000" />
+    <meta data-rh="true" name="twitter:app:name:iphone" content="Medium" />
+    <meta data-rh="true" name="twitter:app:id:iphone" content="828256236" />
+    <meta data-rh="true" property="al:ios:app_name" content="Medium" />
+    <meta data-rh="true" property="al:ios:app_store_id" content="828256236" />
+    <meta data-rh="true" property="al:android:package" content="com.medium.reader" />
+    <meta data-rh="true" property="fb:app_id" content="542599432471018" />
+    <meta data-rh="true" property="og:site_name" content="Medium" />
+    <meta data-rh="true" property="og:type" content="article" />
+    <meta data-rh="true" property="article:published_time" content="2024-08-12T14:05:40.265Z" />
+    <meta data-rh="true" name="title"
+        content="Robust LLM-Driven SQL Query Generation with Substrate.run | by Connor Bell | Exploring Rag and Agentic Systems | Aug, 2024 | Medium" />
+    <meta data-rh="true" property="og:title" content="Robust LLM-Driven SQL Query Generation with Substrate.run" />
+    <meta data-rh="true" property="al:android:url" content="medium://p/942bab9e54cd" />
+    <meta data-rh="true" property="al:ios:url" content="medium://p/942bab9e54cd" />
+    <meta data-rh="true" property="al:android:app_name" content="Medium" />
+    <meta data-rh="true" name="description"
+        content="In this notebook, I will build a robust Natural-Language to SQL Process using Substrates ComputeJSON() feature. To use this Script all you need is a substrate.run account + api key ($50 in free…" />
+    <meta data-rh="true" property="og:description"
+        content="In this notebook, I will build a robust Natural-Language to SQL Process using Substrates ComputeJSON() feature." />
+    <meta data-rh="true" property="og:url"
+        content="https://medium.com/exploring-rag-and-agentic-systems/robust-llm-driven-sql-query-generation-with-substrate-run-942bab9e54cd" />
+    <meta data-rh="true" property="al:web:url"
+        content="https://medium.com/exploring-rag-and-agentic-systems/robust-llm-driven-sql-query-generation-with-substrate-run-942bab9e54cd" />
+    <meta data-rh="true" property="og:image"
+        content="https://miro.medium.com/v2/resize:fit:1200/0*gHGR_yB_PjfpHpe9.jpg" />
+    <meta data-rh="true" property="article:author" content="https://medium.com/@connor.m.bell13" />
+    <meta data-rh="true" name="author" content="Connor Bell" />
+    <meta data-rh="true" name="robots" content="index,noarchive,follow,max-image-preview:large" />
+    <meta data-rh="true" name="referrer" content="unsafe-url" />
+    <meta data-rh="true" property="twitter:title" content="Robust LLM-Driven SQL Query Generation with Substrate.run" />
+    <meta data-rh="true" name="twitter:site" content="@connorbell_dev" />
+    <meta data-rh="true" name="twitter:app:url:iphone" content="medium://p/942bab9e54cd" />
+    <meta data-rh="true" property="twitter:description"
+        content="In this notebook, I will build a robust Natural-Language to SQL Process using Substrates ComputeJSON() feature." />
+    <meta data-rh="true" name="twitter:image:src"
+        content="https://miro.medium.com/v2/resize:fit:1200/0*gHGR_yB_PjfpHpe9.jpg" />
+    <meta data-rh="true" name="twitter:card" content="summary_large_image" />
+    <meta data-rh="true" name="twitter:label1" content="Reading time" />
+    <meta data-rh="true" name="twitter:data1" content="5 min read" />
+    <link data-rh="true" rel="icon"
+        href="https://miro.medium.com/v2/5d8de952517e8160e40ef9841c781cdc14a5db313057fa3c3de41c6f5b494b19" />
+    <link data-rh="true" rel="search" type="application/opensearchdescription+xml" title="Medium" href="/osd.xml" />
+    <link data-rh="true" rel="apple-touch-icon" sizes="152x152"
+        href="https://miro.medium.com/v2/resize:fill:304:304/10fd5c419ac61637245384e7099e131627900034828f4f386bdaa47a74eae156" />
+    <link data-rh="true" rel="apple-touch-icon" sizes="120x120"
+        href="https://miro.medium.com/v2/resize:fill:240:240/10fd5c419ac61637245384e7099e131627900034828f4f386bdaa47a74eae156" />
+    <link data-rh="true" rel="apple-touch-icon" sizes="76x76"
+        href="https://miro.medium.com/v2/resize:fill:152:152/10fd5c419ac61637245384e7099e131627900034828f4f386bdaa47a74eae156" />
+    <link data-rh="true" rel="apple-touch-icon" sizes="60x60"
+        href="https://miro.medium.com/v2/resize:fill:120:120/10fd5c419ac61637245384e7099e131627900034828f4f386bdaa47a74eae156" />
+    <link data-rh="true" rel="mask-icon"
+        href="https://miro.medium.com/v2/resize:fill:1000:1000/7*GAOKVe--MXbEJmV9230oOQ.png" color="#171717" />
+    <link data-rh="true" id="glyph_preload_link" rel="preload" as="style" type="text/css"
+        href="https://glyph.medium.com/css/unbound.css" />
+    <link data-rh="true" id="glyph_link" rel="stylesheet" type="text/css"
+        href="https://glyph.medium.com/css/unbound.css" />
+    <link data-rh="true" rel="author" href="https://medium.com/@connor.m.bell13" />
+    <link data-rh="true" rel="canonical"
+        href="https://medium.com/exploring-rag-and-agentic-systems/robust-llm-driven-sql-query-generation-with-substrate-run-942bab9e54cd" />
+    <link data-rh="true" rel="alternate" href="android-app://com.medium.reader/https/medium.com/p/942bab9e54cd" />
+    <script data-rh="true"
+        type="application/ld+json">{"@context":"http:\u002F\u002Fschema.org","@type":"NewsArticle","image":["https:\u002F\u002Fmiro.medium.com\u002Fv2\u002Fresize:fit:1200\u002F0*gHGR_yB_PjfpHpe9.jpg"],"url":"https:\u002F\u002Fmedium.com\u002Fexploring-rag-and-agentic-systems\u002Frobust-llm-driven-sql-query-generation-with-substrate-run-942bab9e54cd","dateCreated":"2024-08-11T23:27:19.989Z","datePublished":"2024-08-11T23:27:19.989Z","dateModified":"2024-09-17T18:20:49.908Z","headline":"Robust LLM-Driven SQL Query Generation with Substrate.run","name":"Robust LLM-Driven SQL Query Generation with Substrate.run","description":"In this notebook, I will build a robust Natural-Language to SQL Process using Substrates ComputeJSON() feature. To use this Script all you need is a substrate.run account + api key ($50 in free…","identifier":"942bab9e54cd","author":{"@type":"Person","name":"Connor Bell","url":"https:\u002F\u002Fmedium.com\u002F@connor.m.bell13"},"creator":["Connor Bell"],"publisher":{"@type":"Organization","name":"Exploring Rag and Agentic Systems","url":"https:\u002F\u002Fmedium.com\u002Fexploring-rag-and-agentic-systems","logo":{"@type":"ImageObject","width":272,"height":60,"url":"https:\u002F\u002Fmiro.medium.com\u002Fv2\u002Fresize:fit:544\u002F7*V1_7XP4snlmqrc_0Njontw.png"}},"mainEntityOfPage":"https:\u002F\u002Fmedium.com\u002Fexploring-rag-and-agentic-systems\u002Frobust-llm-driven-sql-query-generation-with-substrate-run-942bab9e54cd"}</script>
+    <style type="text/css" data-fela-rehydration="518" data-fela-type="STATIC">
+        html {
+            box-sizing: border-box;
+            -webkit-text-size-adjust: 100%
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            color: rgba(0, 0, 0, 0.8);
+            position: relative;
+            min-height: 100vh
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        dl,
+        dd,
+        ol,
+        ul,
+        menu,
+        figure,
+        blockquote,
+        p,
+        pre,
+        form {
+            margin: 0
+        }
+
+        menu,
+        ol,
+        ul {
+            padding: 0;
+            list-style: none;
+            list-style-image: none
+        }
+
+        main {
+            display: block
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        a,
+        button,
+        input {
+            -webkit-tap-highlight-color: transparent
+        }
+
+        img,
+        svg {
+            vertical-align: middle
+        }
+
+        button {
+            background: transparent;
+            overflow: visible
+        }
+
+        button,
+        input,
+        optgroup,
+        select,
+        textarea {
+            margin: 0
+        }
+
+        :root {
+            --reach-tabs: 1;
+            --reach-menu-button: 1
+        }
+
+        #speechify-root {
+            font-family: Sohne, sans-serif
+        }
+
+        div[data-popper-reference-hidden="true"] {
+            visibility: hidden;
+            pointer-events: none
+        }
+
+        .grecaptcha-badge {
+            visibility: hidden
+        }
+
+        /*XCode style (c) Angel Garcia <angelgarcia.mail@gmail.com>*/
+        .hljs {
+            background: #fff;
+            color: black;
+        }
+
+        /* Gray DOCTYPE selectors like WebKit */
+        .xml .hljs-meta {
+            color: #c0c0c0;
+        }
+
+        .hljs-comment,
+        .hljs-quote {
+            color: #007400;
+        }
+
+        .hljs-tag,
+        .hljs-attribute,
+        .hljs-keyword,
+        .hljs-selector-tag,
+        .hljs-literal,
+        .hljs-name {
+            color: #aa0d91;
+        }
+
+        .hljs-variable,
+        .hljs-template-variable {
+            color: #3F6E74;
+        }
+
+        .hljs-code,
+        .hljs-string,
+        .hljs-meta .hljs-string {
+            color: #c41a16;
+        }
+
+        .hljs-regexp,
+        .hljs-link {
+            color: #0E0EFF;
+        }
+
+        .hljs-title,
+        .hljs-symbol,
+        .hljs-bullet,
+        .hljs-number {
+            color: #1c00cf;
+        }
+
+        .hljs-section,
+        .hljs-meta {
+            color: #643820;
+        }
+
+        .hljs-title.class_,
+        .hljs-class .hljs-title,
+        .hljs-type,
+        .hljs-built_in,
+        .hljs-params {
+            color: #5c2699;
+        }
+
+        .hljs-attr {
+            color: #836C28;
+        }
+
+        .hljs-subst {
+            color: #000;
+        }
+
+        .hljs-formula {
+            background-color: #eee;
+            font-style: italic;
+        }
+
+        .hljs-addition {
+            background-color: #baeeba;
+        }
+
+        .hljs-deletion {
+            background-color: #ffc8bd;
+        }
+
+        .hljs-selector-id,
+        .hljs-selector-class {
+            color: #9b703f;
+        }
+
+        .hljs-doctag,
+        .hljs-strong {
+            font-weight: bold;
+        }
+
+        .hljs-emphasis {
+            font-style: italic;
+        }
+    </style>
+    <style type="text/css" data-fela-rehydration="518" data-fela-type="KEYFRAME">
+        @-webkit-keyframes k1 {
+            0% {
+                opacity: 0.8
+            }
+
+            50% {
+                opacity: 0.5
+            }
+
+            100% {
+                opacity: 0.8
+            }
+        }
+
+        @-moz-keyframes k1 {
+            0% {
+                opacity: 0.8
+            }
+
+            50% {
+                opacity: 0.5
+            }
+
+            100% {
+                opacity: 0.8
+            }
+        }
+
+        @keyframes k1 {
+            0% {
+                opacity: 0.8
+            }
+
+            50% {
+                opacity: 0.5
+            }
+
+            100% {
+                opacity: 0.8
+            }
+        }
+
+        @-webkit-keyframes k2 {
+            0% {
+                transform: scale(1)
+            }
+
+            50% {
+                transform: scale(1.1)
+            }
+
+            100% {
+                transform: scale(1)
+            }
+        }
+
+        @-moz-keyframes k2 {
+            0% {
+                transform: scale(1)
+            }
+
+            50% {
+                transform: scale(1.1)
+            }
+
+            100% {
+                transform: scale(1)
+            }
+        }
+
+        @keyframes k2 {
+            0% {
+                transform: scale(1)
+            }
+
+            50% {
+                transform: scale(1.1)
+            }
+
+            100% {
+                transform: scale(1)
+            }
+        }
+    </style>
+    <style type="text/css" data-fela-rehydration="518" data-fela-type="RULE">
+        .a {
+            font-family: medium-content-sans-serif-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif
+        }
+
+        .b {
+            font-weight: 400
+        }
+
+        .c {
+            background-color: rgba(255, 255, 255, 1)
+        }
+
+        .l {
+            display: block
+        }
+
+        .m {
+            position: sticky
+        }
+
+        .n {
+            top: 0
+        }
+
+        .o {
+            z-index: 500
+        }
+
+        .p {
+            padding: 0 24px
+        }
+
+        .q {
+            align-items: center
+        }
+
+        .r {
+            border-bottom: solid 1px #F2F2F2
+        }
+
+        .y {
+            height: 41px
+        }
+
+        .z {
+            line-height: 20px
+        }
+
+        .ab {
+            display: flex
+        }
+
+        .ac {
+            height: 57px
+        }
+
+        .ae {
+            flex: 1 0 auto
+        }
+
+        .af {
+            color: inherit
+        }
+
+        .ag {
+            fill: inherit
+        }
+
+        .ah {
+            font-size: inherit
+        }
+
+        .ai {
+            border: inherit
+        }
+
+        .aj {
+            font-family: inherit
+        }
+
+        .ak {
+            letter-spacing: inherit
+        }
+
+        .al {
+            font-weight: inherit
+        }
+
+        .am {
+            padding: 0
+        }
+
+        .an {
+            margin: 0
+        }
+
+        .ao {
+            cursor: pointer
+        }
+
+        .ap:disabled {
+            cursor: not-allowed
+        }
+
+        .aq:disabled {
+            color: #6B6B6B
+        }
+
+        .ar:disabled {
+            fill: #6B6B6B
+        }
+
+        .au {
+            width: auto
+        }
+
+        .av path {
+            fill: #242424
+        }
+
+        .aw {
+            height: 25px
+        }
+
+        .ax {
+            margin-left: 16px
+        }
+
+        .ay {
+            border: none
+        }
+
+        .az {
+            border-radius: 20px
+        }
+
+        .ba {
+            width: 240px
+        }
+
+        .bb {
+            background: #F9F9F9
+        }
+
+        .bc path {
+            fill: #6B6B6B
+        }
+
+        .be {
+            outline: none
+        }
+
+        .bf {
+            font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif
+        }
+
+        .bg {
+            font-size: 14px
+        }
+
+        .bh {
+            width: 100%
+        }
+
+        .bi {
+            padding: 10px 20px 10px 0
+        }
+
+        .bj {
+            background-color: transparent
+        }
+
+        .bk {
+            color: #242424
+        }
+
+        .bl::placeholder {
+            color: #6B6B6B
+        }
+
+        .bm {
+            display: inline-block
+        }
+
+        .bn {
+            margin-left: 12px
+        }
+
+        .bo {
+            margin-right: 12px
+        }
+
+        .bp {
+            border-radius: 4px
+        }
+
+        .bq {
+            margin-left: 24px
+        }
+
+        .br {
+            height: 24px
+        }
+
+        .bx {
+            background-color: #F9F9F9
+        }
+
+        .by {
+            border-radius: 50%
+        }
+
+        .bz {
+            height: 32px
+        }
+
+        .ca {
+            width: 32px
+        }
+
+        .cb {
+            justify-content: center
+        }
+
+        .ch {
+            max-width: 680px
+        }
+
+        .ci {
+            min-width: 0
+        }
+
+        .cj {
+            animation: k1 1.2s ease-in-out infinite
+        }
+
+        .ck {
+            height: 100vh
+        }
+
+        .cl {
+            margin-bottom: 16px
+        }
+
+        .cm {
+            margin-top: 48px
+        }
+
+        .cn {
+            align-items: flex-start
+        }
+
+        .co {
+            flex-direction: column
+        }
+
+        .cp {
+            justify-content: space-between
+        }
+
+        .cq {
+            margin-bottom: 24px
+        }
+
+        .cw {
+            width: 80%
+        }
+
+        .cx {
+            background-color: #F2F2F2
+        }
+
+        .dd {
+            height: 44px
+        }
+
+        .de {
+            width: 44px
+        }
+
+        .df {
+            margin: auto 0
+        }
+
+        .dg {
+            margin-bottom: 4px
+        }
+
+        .dh {
+            height: 16px
+        }
+
+        .di {
+            width: 120px
+        }
+
+        .dj {
+            width: 80px
+        }
+
+        .dp {
+            margin-bottom: 8px
+        }
+
+        .dq {
+            width: 96%
+        }
+
+        .dr {
+            width: 98%
+        }
+
+        .ds {
+            width: 81%
+        }
+
+        .dw {
+            margin-left: 8px
+        }
+
+        .dx {
+            color: #6B6B6B
+        }
+
+        .dy {
+            font-size: 13px
+        }
+
+        .dz {
+            flex: 1
+        }
+
+        .ea {
+            height: 100%
+        }
+
+        .ed {
+            margin-right: 32px
+        }
+
+        .ee {
+            position: relative
+        }
+
+        .ef {
+            fill: #6B6B6B
+        }
+
+        .ei {
+            background: transparent
+        }
+
+        .ej svg {
+            margin-left: 4px
+        }
+
+        .ek svg {
+            fill: #6B6B6B
+        }
+
+        .em {
+            box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05)
+        }
+
+        .eo {
+            position: absolute
+        }
+
+        .eq {
+            box-sizing: border-box
+        }
+
+        .er {
+            top: -4px
+        }
+
+        .es {
+            right: -4px
+        }
+
+        .et {
+            width: 16px
+        }
+
+        .ez {
+            margin: 0 24px
+        }
+
+        .fd {
+            background: rgba(255, 255, 255, 1)
+        }
+
+        .fe {
+            border: 1px solid #F2F2F2
+        }
+
+        .ff {
+            box-shadow: 0 1px 4px #F2F2F2
+        }
+
+        .fg {
+            max-height: 100vh
+        }
+
+        .fh {
+            overflow-y: auto
+        }
+
+        .fi {
+            left: 0
+        }
+
+        .fj {
+            top: calc(100vh + 100px)
+        }
+
+        .fk {
+            bottom: calc(100vh + 100px)
+        }
+
+        .fl {
+            width: 10px
+        }
+
+        .fm {
+            pointer-events: none
+        }
+
+        .fn {
+            word-break: break-word
+        }
+
+        .fo {
+            word-wrap: break-word
+        }
+
+        .fp:after {
+            display: block
+        }
+
+        .fq:after {
+            content: ""
+        }
+
+        .fr:after {
+            clear: both
+        }
+
+        .fs {
+            line-height: 1.23
+        }
+
+        .ft {
+            letter-spacing: 0
+        }
+
+        .fu {
+            font-style: normal
+        }
+
+        .fv {
+            font-weight: 700
+        }
+
+        .ha {
+            align-items: baseline
+        }
+
+        .hb {
+            width: 48px
+        }
+
+        .hc {
+            height: 48px
+        }
+
+        .hd {
+            border: 2px solid rgba(255, 255, 255, 1)
+        }
+
+        .he {
+            z-index: 0
+        }
+
+        .hf {
+            box-shadow: none
+        }
+
+        .hg {
+            border: 1px solid rgba(0, 0, 0, 0.05)
+        }
+
+        .hh {
+            margin-left: -12px
+        }
+
+        .hi {
+            width: 28px
+        }
+
+        .hj {
+            height: 28px
+        }
+
+        .hk {
+            z-index: 1
+        }
+
+        .hl {
+            width: 24px
+        }
+
+        .hm {
+            margin-bottom: 2px
+        }
+
+        .hn {
+            flex-wrap: nowrap
+        }
+
+        .ho {
+            font-size: 16px
+        }
+
+        .hp {
+            line-height: 24px
+        }
+
+        .hr {
+            flex: 0 0 auto
+        }
+
+        .hu {
+            flex-wrap: wrap
+        }
+
+        .hx {
+            white-space: pre-wrap
+        }
+
+        .hy {
+            margin-right: 4px
+        }
+
+        .hz {
+            overflow: hidden
+        }
+
+        .ia {
+            max-height: 20px
+        }
+
+        .ib {
+            text-overflow: ellipsis
+        }
+
+        .ic {
+            display: -webkit-box
+        }
+
+        .id {
+            -webkit-line-clamp: 1
+        }
+
+        .ie {
+            -webkit-box-orient: vertical
+        }
+
+        .if {
+            word-break: break-all
+        }
+
+        .ih {
+            margin: 0 8px
+        }
+
+        .ii {
+            display: inline
+        }
+
+        .ij {
+            padding-left: 8px
+        }
+
+        .ik {
+            padding-right: 8px
+        }
+
+        .jl>* {
+            flex-shrink: 0
+        }
+
+        .jm {
+            overflow-x: scroll
+        }
+
+        .jn::-webkit-scrollbar {
+            display: none
+        }
+
+        .jo {
+            scrollbar-width: none
+        }
+
+        .jp {
+            -ms-overflow-style: none
+        }
+
+        .jq {
+            width: 74px
+        }
+
+        .jr {
+            flex-direction: row
+        }
+
+        .js {
+            z-index: 2
+        }
+
+        .jv {
+            -webkit-user-select: none
+        }
+
+        .jw {
+            border: 0
+        }
+
+        .jx {
+            cursor: progress
+        }
+
+        .jy {
+            fill: rgba(117, 117, 117, 1)
+        }
+
+        .kb {
+            opacity: 0.25
+        }
+
+        .kc {
+            outline: 0
+        }
+
+        .kd {
+            user-select: none
+        }
+
+        .ke>svg {
+            pointer-events: none
+        }
+
+        .kn {
+            opacity: 1
+        }
+
+        .ko {
+            padding: 4px 0
+        }
+
+        .kr {
+            margin-top: 0px
+        }
+
+        .ks {
+            padding: 8px 2px
+        }
+
+        .kt:disabled {
+            opacity: 0.3
+        }
+
+        .kw svg path {
+            fill: #6B6B6B
+        }
+
+        .kx {
+            display: inline-flex
+        }
+
+        .ld {
+            max-width: 100%
+        }
+
+        .le svg {
+            color: #6B6B6B
+        }
+
+        .lv {
+            margin-left: auto
+        }
+
+        .lw {
+            margin-right: auto
+        }
+
+        .lx {
+            max-width: 1200px
+        }
+
+        .md {
+            clear: both
+        }
+
+        .mf {
+            cursor: zoom-in
+        }
+
+        .mg {
+            z-index: auto
+        }
+
+        .mi {
+            height: auto
+        }
+
+        .mj {
+            line-height: 1.58
+        }
+
+        .mk {
+            letter-spacing: -0.004em
+        }
+
+        .ml {
+            font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif
+        }
+
+        .ng {
+            margin-bottom: -0.46em
+        }
+
+        .nh {
+            padding: 2px 4px
+        }
+
+        .ni {
+            font-size: 75%
+        }
+
+        .nj>strong {
+            font-family: inherit
+        }
+
+        .nk {
+            font-family: source-code-pro, Menlo, Monaco, "Courier New", Courier, monospace
+        }
+
+        .nl {
+            text-decoration: underline
+        }
+
+        .nm {
+            list-style-type: disc
+        }
+
+        .nn {
+            margin-left: 30px
+        }
+
+        .no {
+            padding-left: 0px
+        }
+
+        .nu {
+            line-height: 1.18
+        }
+
+        .nv {
+            letter-spacing: -0.022em
+        }
+
+        .nw {
+            font-weight: 600
+        }
+
+        .oo {
+            margin-bottom: -0.31em
+        }
+
+        .op {
+            max-width: 1145px
+        }
+
+        .ov {
+            line-height: 1.12
+        }
+
+        .po {
+            margin-bottom: -0.28em
+        }
+
+        .pu {
+            overflow-x: auto
+        }
+
+        .pv {
+            padding: 32px
+        }
+
+        .pw {
+            border: 1px solid #E5E5E5
+        }
+
+        .px {
+            line-height: 1.4
+        }
+
+        .py {
+            margin-top: -0.2em
+        }
+
+        .pz {
+            margin-bottom: -0.2em
+        }
+
+        .qa {
+            white-space: pre
+        }
+
+        .qb {
+            min-width: fit-content
+        }
+
+        .qc {
+            box-shadow: inset 3px 0 0 0 #242424
+        }
+
+        .qd {
+            padding-left: 23px
+        }
+
+        .qe {
+            margin-left: -20px
+        }
+
+        .qf {
+            font-style: italic
+        }
+
+        .qg {
+            list-style-type: decimal
+        }
+
+        .qh {
+            margin-bottom: 26px
+        }
+
+        .qi {
+            margin-top: 6px
+        }
+
+        .qj {
+            margin-top: 8px
+        }
+
+        .qk {
+            margin-right: 8px
+        }
+
+        .ql {
+            padding: 8px 16px
+        }
+
+        .qm {
+            border-radius: 100px
+        }
+
+        .qn {
+            transition: background 300ms ease
+        }
+
+        .qp {
+            white-space: nowrap
+        }
+
+        .qq {
+            border-top: none
+        }
+
+        .qw {
+            height: 52px
+        }
+
+        .qx {
+            max-height: 52px
+        }
+
+        .qy {
+            box-sizing: content-box
+        }
+
+        .qz {
+            position: static
+        }
+
+        .rb {
+            max-width: 155px
+        }
+
+        .rh {
+            margin-right: 20px
+        }
+
+        .rn {
+            align-items: flex-end
+        }
+
+        .ro {
+            width: 76px
+        }
+
+        .rp {
+            height: 76px
+        }
+
+        .rq {
+            border: 2px solid #F9F9F9
+        }
+
+        .rr {
+            height: 72px
+        }
+
+        .rs {
+            width: 72px
+        }
+
+        .rt {
+            margin-left: -16px
+        }
+
+        .ru {
+            width: 36px
+        }
+
+        .rv {
+            height: 36px
+        }
+
+        .rw {
+            color: rgba(255, 255, 255, 1)
+        }
+
+        .rx {
+            padding: 5px 12px
+        }
+
+        .ry {
+            fill: rgba(255, 255, 255, 1)
+        }
+
+        .rz {
+            background: rgba(25, 25, 25, 1)
+        }
+
+        .sa {
+            border-color: rgba(25, 25, 25, 1)
+        }
+
+        .se:disabled {
+            cursor: inherit !important
+        }
+
+        .sf:disabled {
+            opacity: 0.1
+        }
+
+        .sg:disabled:hover {
+            background: rgba(25, 25, 25, 1)
+        }
+
+        .sh:disabled:hover {
+            border-color: rgba(25, 25, 25, 1)
+        }
+
+        .si {
+            border-radius: 99em
+        }
+
+        .sj {
+            border-width: 1px
+        }
+
+        .sk {
+            border-style: solid
+        }
+
+        .sl {
+            text-decoration: none
+        }
+
+        .sm {
+            text-align: center
+        }
+
+        .sn {
+            font-weight: 500
+        }
+
+        .so {
+            font-size: 24px
+        }
+
+        .sp {
+            line-height: 30px
+        }
+
+        .sq {
+            letter-spacing: -0.016em
+        }
+
+        .sr {
+            margin-top: 16px
+        }
+
+        .ss {
+            height: 0px
+        }
+
+        .st {
+            border-bottom: solid 1px #E5E5E5
+        }
+
+        .su {
+            margin-top: 72px
+        }
+
+        .sv {
+            padding: 24px 0
+        }
+
+        .sw {
+            margin-bottom: 0px
+        }
+
+        .sx {
+            margin-right: 16px
+        }
+
+        .sy {
+            margin-right: -4px
+        }
+
+        .as:hover:not(:disabled) {
+            color: rgba(25, 25, 25, 1)
+        }
+
+        .at:hover:not(:disabled) {
+            fill: rgba(25, 25, 25, 1)
+        }
+
+        .eg:hover {
+            color: #242424
+        }
+
+        .eh:hover {
+            fill: #242424
+        }
+
+        .el:hover svg {
+            fill: #242424
+        }
+
+        .ep:hover {
+            background-color: rgba(0, 0, 0, 0.1)
+        }
+
+        .hq:hover {
+            text-decoration: underline
+        }
+
+        .ka:hover {
+            fill: rgba(117, 117, 117, 1)
+        }
+
+        .kp:hover {
+            fill: #000000
+        }
+
+        .kq:hover p {
+            color: #000000
+        }
+
+        .ku:hover:not(:disabled) svg path {
+            fill: #000000
+        }
+
+        .lf:hover svg {
+            color: #000000
+        }
+
+        .qo:hover {
+            background-color: #F2F2F2
+        }
+
+        .sb:hover {
+            background: #000000
+        }
+
+        .sc:hover {
+            border-color: #242424
+        }
+
+        .sd:hover {
+            cursor: pointer
+        }
+
+        .bd:focus-within path {
+            fill: #242424
+        }
+
+        .jz:focus {
+            fill: rgba(117, 117, 117, 1)
+        }
+
+        .kv:focus svg path {
+            fill: #000000
+        }
+
+        .lg:focus svg {
+            color: #000000
+        }
+
+        .mh:focus {
+            transform: scale(1.01)
+        }
+
+        .kf:active {
+            border-style: none
+        }
+    </style>
+    <style type="text/css" data-fela-rehydration="518" data-fela-type="RULE" media="all and (min-width: 1080px)">
+        .d {
+            display: none
+        }
+
+        .bw {
+            width: 64px
+        }
+
+        .cg {
+            margin: 0 64px
+        }
+
+        .cv {
+            height: 48px
+        }
+
+        .dc {
+            margin-bottom: 52px
+        }
+
+        .do {
+            margin-bottom: 48px
+        }
+
+        .ec {
+            display: flex
+        }
+
+        .ey {
+            margin-bottom: 68px
+        }
+
+        .fc {
+            max-width: 680px
+        }
+
+        .gq {
+            font-size: 42px
+        }
+
+        .gr {
+            margin-top: 1.19em
+        }
+
+        .gs {
+            margin-bottom: 32px
+        }
+
+        .gt {
+            line-height: 52px
+        }
+
+        .gu {
+            letter-spacing: -0.011em
+        }
+
+        .gz {
+            align-items: center
+        }
+
+        .ix {
+            border-top: solid 1px #F2F2F2
+        }
+
+        .iy {
+            border-bottom: solid 1px #F2F2F2
+        }
+
+        .iz {
+            margin: 32px 0 0
+        }
+
+        .ja {
+            padding: 3px 8px
+        }
+
+        .jj>* {
+            margin-right: 24px
+        }
+
+        .jk> :last-child {
+            margin-right: 0
+        }
+
+        .km {
+            margin-top: 0px
+        }
+
+        .lc {
+            margin: 0
+        }
+
+        .mc {
+            margin-top: 40px
+        }
+
+        .nc {
+            font-size: 20px
+        }
+
+        .nd {
+            margin-top: 2.14em
+        }
+
+        .ne {
+            line-height: 32px
+        }
+
+        .nf {
+            letter-spacing: -0.003em
+        }
+
+        .nt {
+            margin-top: 1.14em
+        }
+
+        .ol {
+            margin-top: 1.72em
+        }
+
+        .om {
+            line-height: 24px
+        }
+
+        .on {
+            letter-spacing: 0
+        }
+
+        .ou {
+            margin-top: 56px
+        }
+
+        .pk {
+            font-size: 24px
+        }
+
+        .pl {
+            margin-top: 1.95em
+        }
+
+        .pm {
+            line-height: 30px
+        }
+
+        .pn {
+            letter-spacing: -0.016em
+        }
+
+        .pt {
+            margin-top: 0.94em
+        }
+
+        .qv {
+            margin-bottom: 88px
+        }
+
+        .rg {
+            display: inline-block
+        }
+
+        .rm {
+            padding-top: 72px
+        }
+    </style>
+    <style type="text/css" data-fela-rehydration="518" data-fela-type="RULE" media="all and (max-width: 1079.98px)">
+        .e {
+            display: none
+        }
+
+        .kl {
+            margin-top: 0px
+        }
+
+        .rf {
+            display: inline-block
+        }
+    </style>
+    <style type="text/css" data-fela-rehydration="518" data-fela-type="RULE" media="all and (max-width: 903.98px)">
+        .f {
+            display: none
+        }
+
+        .kk {
+            margin-top: 0px
+        }
+
+        .re {
+            display: inline-block
+        }
+    </style>
+    <style type="text/css" data-fela-rehydration="518" data-fela-type="RULE" media="all and (max-width: 727.98px)">
+        .g {
+            display: none
+        }
+
+        .ki {
+            margin-top: 0px
+        }
+
+        .kj {
+            margin-right: 0px
+        }
+
+        .rd {
+            display: inline-block
+        }
+    </style>
+    <style type="text/css" data-fela-rehydration="518" data-fela-type="RULE" media="all and (max-width: 551.98px)">
+        .h {
+            display: none
+        }
+
+        .s {
+            display: flex
+        }
+
+        .t {
+            justify-content: space-between
+        }
+
+        .bs {
+            width: 24px
+        }
+
+        .cc {
+            margin: 0 24px
+        }
+
+        .cr {
+            height: 40px
+        }
+
+        .cy {
+            margin-bottom: 44px
+        }
+
+        .dk {
+            margin-bottom: 32px
+        }
+
+        .dt {
+            justify-content: center
+        }
+
+        .eu {
+            margin-bottom: 4px
+        }
+
+        .fw {
+            font-size: 32px
+        }
+
+        .fx {
+            margin-top: 1.01em
+        }
+
+        .fy {
+            margin-bottom: 24px
+        }
+
+        .fz {
+            line-height: 38px
+        }
+
+        .ga {
+            letter-spacing: -0.014em
+        }
+
+        .gv {
+            align-items: flex-start
+        }
+
+        .hs {
+            flex-direction: column
+        }
+
+        .hv {
+            margin-bottom: 2px
+        }
+
+        .il {
+            margin: 24px -24px 0
+        }
+
+        .im {
+            padding: 0
+        }
+
+        .jb>* {
+            margin-right: 8px
+        }
+
+        .jc> :last-child {
+            margin-right: 24px
+        }
+
+        .jt {
+            margin-left: 0px
+        }
+
+        .kg {
+            margin-top: 0px
+        }
+
+        .kh {
+            margin-right: 0px
+        }
+
+        .ky {
+            margin: 0
+        }
+
+        .lh {
+            border: 1px solid #F2F2F2
+        }
+
+        .li {
+            border-radius: 99em
+        }
+
+        .lj {
+            padding: 0px 16px 0px 12px
+        }
+
+        .lk {
+            height: 38px
+        }
+
+        .ll {
+            align-items: center
+        }
+
+        .ln svg {
+            margin-right: 8px
+        }
+
+        .ly {
+            margin-top: 32px
+        }
+
+        .mm {
+            font-size: 18px
+        }
+
+        .mn {
+            margin-top: 1.56em
+        }
+
+        .mo {
+            line-height: 28px
+        }
+
+        .mp {
+            letter-spacing: -0.003em
+        }
+
+        .np {
+            margin-top: 1.34em
+        }
+
+        .nx {
+            font-size: 16px
+        }
+
+        .ny {
+            margin-top: 1.23em
+        }
+
+        .nz {
+            line-height: 20px
+        }
+
+        .oa {
+            letter-spacing: 0
+        }
+
+        .oq {
+            margin-top: 40px
+        }
+
+        .ow {
+            font-size: 20px
+        }
+
+        .ox {
+            margin-top: 1.2em
+        }
+
+        .oy {
+            line-height: 24px
+        }
+
+        .pp {
+            margin-top: 0.67em
+        }
+
+        .qr {
+            margin-bottom: 80px
+        }
+
+        .rc {
+            display: inline-block
+        }
+
+        .ri {
+            padding-top: 48px
+        }
+
+        .lm:hover {
+            border-color: #E5E5E5
+        }
+    </style>
+    <style type="text/css" data-fela-rehydration="518" data-fela-type="RULE"
+        media="all and (min-width: 904px) and (max-width: 1079.98px)">
+        .i {
+            display: none
+        }
+
+        .bv {
+            width: 64px
+        }
+
+        .cf {
+            margin: 0 64px
+        }
+
+        .cu {
+            height: 48px
+        }
+
+        .db {
+            margin-bottom: 52px
+        }
+
+        .dn {
+            margin-bottom: 48px
+        }
+
+        .eb {
+            display: flex
+        }
+
+        .ex {
+            margin-bottom: 68px
+        }
+
+        .fb {
+            max-width: 680px
+        }
+
+        .gl {
+            font-size: 42px
+        }
+
+        .gm {
+            margin-top: 1.19em
+        }
+
+        .gn {
+            margin-bottom: 32px
+        }
+
+        .go {
+            line-height: 52px
+        }
+
+        .gp {
+            letter-spacing: -0.011em
+        }
+
+        .gy {
+            align-items: center
+        }
+
+        .it {
+            border-top: solid 1px #F2F2F2
+        }
+
+        .iu {
+            border-bottom: solid 1px #F2F2F2
+        }
+
+        .iv {
+            margin: 32px 0 0
+        }
+
+        .iw {
+            padding: 3px 8px
+        }
+
+        .jh>* {
+            margin-right: 24px
+        }
+
+        .ji> :last-child {
+            margin-right: 0
+        }
+
+        .lb {
+            margin: 0
+        }
+
+        .mb {
+            margin-top: 40px
+        }
+
+        .my {
+            font-size: 20px
+        }
+
+        .mz {
+            margin-top: 2.14em
+        }
+
+        .na {
+            line-height: 32px
+        }
+
+        .nb {
+            letter-spacing: -0.003em
+        }
+
+        .ns {
+            margin-top: 1.14em
+        }
+
+        .oi {
+            margin-top: 1.72em
+        }
+
+        .oj {
+            line-height: 24px
+        }
+
+        .ok {
+            letter-spacing: 0
+        }
+
+        .ot {
+            margin-top: 56px
+        }
+
+        .pg {
+            font-size: 24px
+        }
+
+        .ph {
+            margin-top: 1.95em
+        }
+
+        .pi {
+            line-height: 30px
+        }
+
+        .pj {
+            letter-spacing: -0.016em
+        }
+
+        .ps {
+            margin-top: 0.94em
+        }
+
+        .qu {
+            margin-bottom: 88px
+        }
+
+        .rl {
+            padding-top: 72px
+        }
+    </style>
+    <style type="text/css" data-fela-rehydration="518" data-fela-type="RULE"
+        media="all and (min-width: 728px) and (max-width: 903.98px)">
+        .j {
+            display: none
+        }
+
+        .w {
+            display: flex
+        }
+
+        .x {
+            justify-content: space-between
+        }
+
+        .bu {
+            width: 64px
+        }
+
+        .ce {
+            margin: 0 48px
+        }
+
+        .ct {
+            height: 48px
+        }
+
+        .da {
+            margin-bottom: 52px
+        }
+
+        .dm {
+            margin-bottom: 48px
+        }
+
+        .dv {
+            justify-content: center
+        }
+
+        .ew {
+            margin-bottom: 68px
+        }
+
+        .fa {
+            max-width: 680px
+        }
+
+        .gg {
+            font-size: 42px
+        }
+
+        .gh {
+            margin-top: 1.19em
+        }
+
+        .gi {
+            margin-bottom: 32px
+        }
+
+        .gj {
+            line-height: 52px
+        }
+
+        .gk {
+            letter-spacing: -0.011em
+        }
+
+        .gx {
+            align-items: center
+        }
+
+        .ip {
+            border-top: solid 1px #F2F2F2
+        }
+
+        .iq {
+            border-bottom: solid 1px #F2F2F2
+        }
+
+        .ir {
+            margin: 32px 0 0
+        }
+
+        .is {
+            padding: 3px 8px
+        }
+
+        .jf>* {
+            margin-right: 24px
+        }
+
+        .jg> :last-child {
+            margin-right: 0
+        }
+
+        .la {
+            margin: 0
+        }
+
+        .ma {
+            margin-top: 40px
+        }
+
+        .mu {
+            font-size: 20px
+        }
+
+        .mv {
+            margin-top: 2.14em
+        }
+
+        .mw {
+            line-height: 32px
+        }
+
+        .mx {
+            letter-spacing: -0.003em
+        }
+
+        .nr {
+            margin-top: 1.14em
+        }
+
+        .of {
+            margin-top: 1.72em
+        }
+
+        .og {
+            line-height: 24px
+        }
+
+        .oh {
+            letter-spacing: 0
+        }
+
+        .os {
+            margin-top: 56px
+        }
+
+        .pc {
+            font-size: 24px
+        }
+
+        .pd {
+            margin-top: 1.95em
+        }
+
+        .pe {
+            line-height: 30px
+        }
+
+        .pf {
+            letter-spacing: -0.016em
+        }
+
+        .pr {
+            margin-top: 0.94em
+        }
+
+        .qt {
+            margin-bottom: 88px
+        }
+
+        .rk {
+            padding-top: 72px
+        }
+    </style>
+    <style type="text/css" data-fela-rehydration="518" data-fela-type="RULE"
+        media="all and (min-width: 552px) and (max-width: 727.98px)">
+        .k {
+            display: none
+        }
+
+        .u {
+            display: flex
+        }
+
+        .v {
+            justify-content: space-between
+        }
+
+        .bt {
+            width: 24px
+        }
+
+        .cd {
+            margin: 0 24px
+        }
+
+        .cs {
+            height: 40px
+        }
+
+        .cz {
+            margin-bottom: 44px
+        }
+
+        .dl {
+            margin-bottom: 32px
+        }
+
+        .du {
+            justify-content: center
+        }
+
+        .ev {
+            margin-bottom: 4px
+        }
+
+        .gb {
+            font-size: 32px
+        }
+
+        .gc {
+            margin-top: 1.01em
+        }
+
+        .gd {
+            margin-bottom: 24px
+        }
+
+        .ge {
+            line-height: 38px
+        }
+
+        .gf {
+            letter-spacing: -0.014em
+        }
+
+        .gw {
+            align-items: flex-start
+        }
+
+        .ht {
+            flex-direction: column
+        }
+
+        .hw {
+            margin-bottom: 2px
+        }
+
+        .in {
+            margin: 24px 0 0
+        }
+
+        .io {
+            padding: 0
+        }
+
+        .jd>* {
+            margin-right: 8px
+        }
+
+        .je> :last-child {
+            margin-right: 8px
+        }
+
+        .ju {
+            margin-left: 0px
+        }
+
+        .kz {
+            margin: 0
+        }
+
+        .lo {
+            border: 1px solid #F2F2F2
+        }
+
+        .lp {
+            border-radius: 99em
+        }
+
+        .lq {
+            padding: 0px 16px 0px 12px
+        }
+
+        .lr {
+            height: 38px
+        }
+
+        .ls {
+            align-items: center
+        }
+
+        .lu svg {
+            margin-right: 8px
+        }
+
+        .lz {
+            margin-top: 32px
+        }
+
+        .mq {
+            font-size: 18px
+        }
+
+        .mr {
+            margin-top: 1.56em
+        }
+
+        .ms {
+            line-height: 28px
+        }
+
+        .mt {
+            letter-spacing: -0.003em
+        }
+
+        .nq {
+            margin-top: 1.34em
+        }
+
+        .ob {
+            font-size: 16px
+        }
+
+        .oc {
+            margin-top: 1.23em
+        }
+
+        .od {
+            line-height: 20px
+        }
+
+        .oe {
+            letter-spacing: 0
+        }
+
+        .or {
+            margin-top: 40px
+        }
+
+        .oz {
+            font-size: 20px
+        }
+
+        .pa {
+            margin-top: 1.2em
+        }
+
+        .pb {
+            line-height: 24px
+        }
+
+        .pq {
+            margin-top: 0.67em
+        }
+
+        .qs {
+            margin-bottom: 80px
+        }
+
+        .rj {
+            padding-top: 48px
+        }
+
+        .lt:hover {
+            border-color: #E5E5E5
+        }
+    </style>
+    <style type="text/css" data-fela-rehydration="518" data-fela-type="RULE" media="print">
+        .ra {
+            display: none
+        }
+    </style>
+    <style type="text/css" data-fela-rehydration="518" data-fela-type="RULE"
+        media="(orientation: landscape) and (max-width: 903.98px)">
+        .ig {
+            max-height: none
+        }
+    </style>
+    <style type="text/css" data-fela-rehydration="518" data-fela-type="RULE"
+        media="(prefers-reduced-motion: no-preference)">
+        .me {
+            transition: transform 300ms cubic-bezier(0.2, 0, 0.2, 1)
+        }
+    </style>
+</head>
+<section>
+    <div>
+        <div class="eo fi fj fk fl fm"></div>
+        <div class="fn fo fp fq fr">
+            <div class="ab cb">
+                <div class="ci bh ez fa fb fc">
+                    <div>
+                        <h1 id="a397"
+                            class="pw-post-title fs ft fu bf fv fw fx fy fz ga gb gc gd ge gf gg gh gi gj gk gl gm gn go gp gq gr gs gt gu bk"
+                            data-testid="storyTitle">Robust LLM-Driven SQL Query
+                            Generation with Substrate.run</h1>
+                        <div>
+
+                        </div>
+                    </div>
+                    <figure class="ly lz ma mb mc md lv lw paragraph-image">
+                        <div role="button" tabindex="0" class="me mf ee mg bh mh">
+                            <div class="lv lw lx">
+                                <picture>
+                                    <source
+                                        srcSet="https://miro.medium.com/v2/resize:fit:640/format:webp/0*gHGR_yB_PjfpHpe9.jpg 640w, https://miro.medium.com/v2/resize:fit:720/format:webp/0*gHGR_yB_PjfpHpe9.jpg 720w, https://miro.medium.com/v2/resize:fit:750/format:webp/0*gHGR_yB_PjfpHpe9.jpg 750w, https://miro.medium.com/v2/resize:fit:786/format:webp/0*gHGR_yB_PjfpHpe9.jpg 786w, https://miro.medium.com/v2/resize:fit:828/format:webp/0*gHGR_yB_PjfpHpe9.jpg 828w, https://miro.medium.com/v2/resize:fit:1100/format:webp/0*gHGR_yB_PjfpHpe9.jpg 1100w, https://miro.medium.com/v2/resize:fit:1400/format:webp/0*gHGR_yB_PjfpHpe9.jpg 1400w"
+                                        sizes="(min-resolution: 4dppx) and (max-width: 700px) 50vw, (-webkit-min-device-pixel-ratio: 4) and (max-width: 700px) 50vw, (min-resolution: 3dppx) and (max-width: 700px) 67vw, (-webkit-min-device-pixel-ratio: 3) and (max-width: 700px) 65vw, (min-resolution: 2.5dppx) and (max-width: 700px) 80vw, (-webkit-min-device-pixel-ratio: 2.5) and (max-width: 700px) 80vw, (min-resolution: 2dppx) and (max-width: 700px) 100vw, (-webkit-min-device-pixel-ratio: 2) and (max-width: 700px) 100vw, 700px"
+                                        type="image/webp" />
+                                    <source data-testid="og"
+                                        srcSet="https://miro.medium.com/v2/resize:fit:640/0*gHGR_yB_PjfpHpe9.jpg 640w, https://miro.medium.com/v2/resize:fit:720/0*gHGR_yB_PjfpHpe9.jpg 720w, https://miro.medium.com/v2/resize:fit:750/0*gHGR_yB_PjfpHpe9.jpg 750w, https://miro.medium.com/v2/resize:fit:786/0*gHGR_yB_PjfpHpe9.jpg 786w, https://miro.medium.com/v2/resize:fit:828/0*gHGR_yB_PjfpHpe9.jpg 828w, https://miro.medium.com/v2/resize:fit:1100/0*gHGR_yB_PjfpHpe9.jpg 1100w, https://miro.medium.com/v2/resize:fit:1400/0*gHGR_yB_PjfpHpe9.jpg 1400w"
+                                        sizes="(min-resolution: 4dppx) and (max-width: 700px) 50vw, (-webkit-min-device-pixel-ratio: 4) and (max-width: 700px) 50vw, (min-resolution: 3dppx) and (max-width: 700px) 67vw, (-webkit-min-device-pixel-ratio: 3) and (max-width: 700px) 65vw, (min-resolution: 2.5dppx) and (max-width: 700px) 80vw, (-webkit-min-device-pixel-ratio: 2.5) and (max-width: 700px) 80vw, (min-resolution: 2dppx) and (max-width: 700px) 100vw, (-webkit-min-device-pixel-ratio: 2) and (max-width: 700px) 100vw, 700px" />
+                                    <img alt="" class="bh ld mi c" width="700" height="401" loading="eager"
+                                        role="presentation" />
+                                </picture>
+                            </div>
+                        </div>
+                    </figure>
+                    <p id="b1d3"
+                        class="pw-post-body-paragraph mj mk fu ml b mm mn mo mp mq mr ms mt mu mv mw mx my mz na nb nc nd ne nf ng fn bk">
+                        In this notebook, I will build a robust <code
+                            class="cx nh ni nj nk b">Natural-Language to SQL</code>
+                        Process using <a class="af nl" href="https://substrate.run" rel="noopener ugc nofollow"
+                            target="_blank">Substrates</a> <code class="cx nh ni nj nk b">ComputeJSON()</code> feature.
+                    </p>
+                    <p id="0e31"
+                        class="pw-post-body-paragraph mj mk fu ml b mm mn mo mp mq mr ms mt mu mv mw mx my mz na nb nc nd ne nf ng fn bk">
+                        This will generate Syntactically + Contextually Correct
+                        Queries by manually building out:</p>
+                    <ul class="">
+                        <li id="eeaf"
+                            class="mj mk fu ml b mm mn mo mp mq mr ms mt mu mv mw mx my mz na nb nc nd ne nf ng nm nn no bk">
+                            Mappings of the SQL Table you are querying</li>
+                        <li id="630e"
+                            class="mj mk fu ml b mm np mo mp mq nq ms mt mu nr mw mx my ns na nb nc nt ne nf ng nm nn no bk">
+                            NLP Style SQL Objects that you will put together to
+                            create an SQL Syntax for the Large Language Model to
+                            reference.</li>
+                    </ul>
+                    <p id="3347"
+                        class="pw-post-body-paragraph mj mk fu ml b mm mn mo mp mq mr ms mt mu mv mw mx my mz na nb nc nd ne nf ng fn bk">
+                        To use this Script all you need is a substrate.run account +
+                        api key <code class="cx nh ni nj nk b">($50 in free credits on sign up)</code>
+                    </p>
+                    <p id="ff7e"
+                        class="pw-post-body-paragraph mj mk fu ml b mm mn mo mp mq mr ms mt mu mv mw mx my mz na nb nc nd ne nf ng fn bk">
+                        please reach to <a class="af nl" href="http://connorbell.dev" rel="noopener ugc nofollow"
+                            target="_blank">connor bell</a> for any questions or
+                        suggestions or email me <a class="af nl" href="mailto:connor.m.bell13@gmail.com"
+                            rel="noopener ugc nofollow" target="_blank">here</a>.
+                    </p>
+                    <h2 id="2c53"
+                        class="nu nv fu bf nw nx ny nz oa ob oc od oe mu of og oh my oi oj ok nc ol om on oo bk">
+                        SQL Table</h2>
+                    <figure class="oq or os ot ou md lv lw paragraph-image">
+                        <div role="button" tabindex="0" class="me mf ee mg bh mh">
+                            <div class="lv lw op">
+                                <picture>
+                                    <source
+                                        srcSet="https://miro.medium.com/v2/resize:fit:640/format:webp/1*V1eXWXQWTSwIglRiLkGQ_A.png 640w, https://miro.medium.com/v2/resize:fit:720/format:webp/1*V1eXWXQWTSwIglRiLkGQ_A.png 720w, https://miro.medium.com/v2/resize:fit:750/format:webp/1*V1eXWXQWTSwIglRiLkGQ_A.png 750w, https://miro.medium.com/v2/resize:fit:786/format:webp/1*V1eXWXQWTSwIglRiLkGQ_A.png 786w, https://miro.medium.com/v2/resize:fit:828/format:webp/1*V1eXWXQWTSwIglRiLkGQ_A.png 828w, https://miro.medium.com/v2/resize:fit:1100/format:webp/1*V1eXWXQWTSwIglRiLkGQ_A.png 1100w, https://miro.medium.com/v2/resize:fit:1400/format:webp/1*V1eXWXQWTSwIglRiLkGQ_A.png 1400w"
+                                        sizes="(min-resolution: 4dppx) and (max-width: 700px) 50vw, (-webkit-min-device-pixel-ratio: 4) and (max-width: 700px) 50vw, (min-resolution: 3dppx) and (max-width: 700px) 67vw, (-webkit-min-device-pixel-ratio: 3) and (max-width: 700px) 65vw, (min-resolution: 2.5dppx) and (max-width: 700px) 80vw, (-webkit-min-device-pixel-ratio: 2.5) and (max-width: 700px) 80vw, (min-resolution: 2dppx) and (max-width: 700px) 100vw, (-webkit-min-device-pixel-ratio: 2) and (max-width: 700px) 100vw, 700px"
+                                        type="image/webp" />
+                                    <source data-testid="og"
+                                        srcSet="https://miro.medium.com/v2/resize:fit:640/1*V1eXWXQWTSwIglRiLkGQ_A.png 640w, https://miro.medium.com/v2/resize:fit:720/1*V1eXWXQWTSwIglRiLkGQ_A.png 720w, https://miro.medium.com/v2/resize:fit:750/1*V1eXWXQWTSwIglRiLkGQ_A.png 750w, https://miro.medium.com/v2/resize:fit:786/1*V1eXWXQWTSwIglRiLkGQ_A.png 786w, https://miro.medium.com/v2/resize:fit:828/1*V1eXWXQWTSwIglRiLkGQ_A.png 828w, https://miro.medium.com/v2/resize:fit:1100/1*V1eXWXQWTSwIglRiLkGQ_A.png 1100w, https://miro.medium.com/v2/resize:fit:1400/1*V1eXWXQWTSwIglRiLkGQ_A.png 1400w"
+                                        sizes="(min-resolution: 4dppx) and (max-width: 700px) 50vw, (-webkit-min-device-pixel-ratio: 4) and (max-width: 700px) 50vw, (min-resolution: 3dppx) and (max-width: 700px) 67vw, (-webkit-min-device-pixel-ratio: 3) and (max-width: 700px) 65vw, (min-resolution: 2.5dppx) and (max-width: 700px) 80vw, (-webkit-min-device-pixel-ratio: 2.5) and (max-width: 700px) 80vw, (min-resolution: 2dppx) and (max-width: 700px) 100vw, (-webkit-min-device-pixel-ratio: 2) and (max-width: 700px) 100vw, 700px" />
+                                    <img alt="" class="bh ld mi c" width="700" height="250" loading="lazy"
+                                        role="presentation" />
+                                </picture>
+                            </div>
+                        </div>
+                    </figure>
+                    <h1 id="6858"
+                        class="ov nv fu bf nw ow ox oy oa oz pa pb oe pc pd pe pf pg ph pi pj pk pl pm pn po bk">
+                        Setting Environment</h1>
+                    <p id="86b8"
+                        class="pw-post-body-paragraph mj mk fu ml b mm pp mo mp mq pq ms mt mu pr mw mx my ps na nb nc pt ne nf ng fn bk">
+                        First, I set up my development environment by installing the
+                        necessary Python packages.</p>
+                    <p id="e566"
+                        class="pw-post-body-paragraph mj mk fu ml b mm mn mo mp mq mr ms mt mu mv mw mx my mz na nb nc nd ne nf ng fn bk">
+                        I made sure that the required libraries, such as ‘Pydantic’
+                        and ‘Substrate’, were correctly installed to avoid any
+                        issues during the development process.</p>
+                    <pre
+                        class="oq or os ot ou pu nk pv bp pw bb bk"><span id="c592" class="px nv fu nk b bg py pz l qa qb">!pip install pydantic<br/>!pip install substrate<br/>from substrate import ComputeJSON, Substrate<br/>from pydantic import BaseModel, Field, validator<br/>from typing import Optional, Union, List<br/><br/>key = &quot;apik_XXXXXXXXXXXXXX&quot;<br/>substrate = Substrate(api_key=key)</span></pre>
+                    <h1 id="4535"
+                        class="ov nv fu bf nw ow ox oy oa oz pa pb oe pc pd pe pf pg ph pi pj pk pl pm pn po bk">
+                        Step 1: Defining Column Types + Enumerations</h1>
+                    <p id="3dcc"
+                        class="pw-post-body-paragraph mj mk fu ml b mm pp mo mp mq pq ms mt mu pr mw mx my ps na nb nc pt ne nf ng fn bk">
+                        To start, I defined enumerations for <strong class="ml fv">dept_id</strong> and <strong
+                            class="ml fv">expertise</strong>. This step was crucial
+                        as it allowed me to restrict the possible values for these
+                        fields, ensuring that only valid options are used in SQL
+                        queries.</p>
+                    <pre
+                        class="oq or os ot ou pu nk pv bp pw bb bk"><span id="0614" class="px nv fu nk b bg py pz l qa qb">from enum import Enum<br/><br/>class Departments(str, Enum):<br/>    IT = &quot;IT&quot;<br/>    SALES = &quot;SALES&quot;<br/>    ACCOUNTING = &quot;ACCOUNTING&quot;<br/>    CEO = &quot;CEO&quot;<br/><br/>class EmpLevel(str, Enum):<br/>    JUNIOR = &quot;JUNIOR&quot;<br/>    SEMISENIOR = &quot;SEMISENIOR&quot;<br/>    SENIOR = &quot;SENIOR&quot;<br/><br/>class column_names(str, Enum):<br/>    EMPLOYEE_ID = &quot;employee_id&quot;<br/>    FIRST_NAME = &quot;first_name&quot;<br/>    LAST_NAME = &quot;last_name&quot;<br/>    DEPT_ID = &quot;dept_id&quot;<br/>    MANAGER_ID = &quot;manager_id&quot;<br/>    SALARY = &quot;salary&quot;<br/>    EXPERTISE = &quot;expertise&quot;<br/>    <br/>class TableColumns(BaseModel):<br/>    employee_id: Optional[int] = Field(None, title=&quot;Employee ID&quot;, description=&quot;The ID of the employee&quot;)<br/>    first_name: Optional[str] = Field(None, title=&quot;First Name&quot;, description=&quot;The first name of the employee&quot;)<br/>    last_name: Optional[str] = Field(None, title=&quot;Last Name&quot;, description=&quot;The last name of the employee&quot;)<br/>    dept_id: Optional[Departments] = Field(None, title=&quot;Department ID&quot;, description=&quot;The department ID of the employee&quot;)<br/>    manager_id: Optional[int] = Field(None, title=&quot;Manager ID&quot;, description=&quot;The ID of the manager&quot;)<br/>    salary: Optional[int] = Field(None, title=&quot;Salary&quot;, description=&quot;The salary of the employee&quot;)<br/>    expertise: Optional[EmpLevel] = Field(None, title=&quot;Expertise Level&quot;, description=&quot;The expertise level of the employee&quot;)</span></pre>
+                    <h1 id="bb3f"
+                        class="ov nv fu bf nw ow ox oy oa oz pa pb oe pc pd pe pf pg ph pi pj pk pl pm pn po bk">
+                        Step 2: Defining SQL Syntax through Models</h1>
+                    <p id="060f"
+                        class="pw-post-body-paragraph mj mk fu ml b mm pp mo mp mq pq ms mt mu pr mw mx my ps na nb nc pt ne nf ng fn bk">
+                        I defined models to describe SQL <code class="cx nh ni nj nk b">operations</code>, <code
+                            class="cx nh ni nj nk b">comparisons</code>, <code
+                            class="cx nh ni nj nk b">logic operators</code>, and
+                        <code class="cx nh ni nj nk b">ordering</code>.
+                    </p>
+                    <blockquote class="qc qd qe">
+                        <p id="038d"
+                            class="mj mk qf ml b mm mn mo mp mq mr ms mt mu mv mw mx my mz na nb nc nd ne nf ng fn bk">
+                            This approach ensures that SQL queries adhere to the
+                            correct format and data types, Allowing <a class="af nl" href="http://substrate.run"
+                                rel="noopener ugc nofollow" target="_blank">Substrate</a> to have access to the
+                            base SQL Language when generating the JSON</p>
+                    </blockquote>
+                    <pre
+                        class="oq or os ot ou pu nk pv bp pw bb bk"><span id="77bd" class="px nv fu nk b bg py pz l qa qb">class sql_type(str, Enum):<br/>    SELECT = &quot;SELECT&quot;<br/>    INSERT = &quot;INSERT&quot;<br/>    UPDATE = &quot;UPDATE&quot;<br/>    DELETE = &quot;DELETE&quot;<br/><br/>class sql_compare(str, Enum):<br/>    EQUAL = &quot;=&quot;<br/>    NOT_EQUAL = &quot;!=&quot;<br/>    GREATER = &quot;&gt;&quot;<br/>    LESS = &quot;&lt;&quot;<br/>    GREATER_EQUAL = &quot;&gt;=&quot;<br/>    LESS_EQUAL = &quot;&lt;=&quot;<br/><br/>class sql_logic_operator(str, Enum):<br/>    AND = &quot;AND&quot;<br/>    OR = &quot;OR&quot;<br/><br/>class sql_order(str, Enum):<br/>    ASC = &quot;ASC&quot;<br/>    DESC = &quot;DESC&quot;</span></pre>
+                    <h1 id="e04c"
+                        class="ov nv fu bf nw ow ox oy oa oz pa pb oe pc pd pe pf pg ph pi pj pk pl pm pn po bk">
+                        Step 4: Combining SQL Conditions with Logic Operators</h1>
+                    <p id="a9b2"
+                        class="pw-post-body-paragraph mj mk fu ml b mm pp mo mp mq pq ms mt mu pr mw mx my ps na nb nc pt ne nf ng fn bk">
+                        With the enumerations and validation models in place, I
+                        moved on to constructing SQL queries.</p>
+                    <p id="4260"
+                        class="pw-post-body-paragraph mj mk fu ml b mm mn mo mp mq mr ms mt mu mv mw mx my mz na nb nc nd ne nf ng fn bk">
+                        I developed a function to dynamically build SQL queries
+                        based on the validated data from models. This method offers
+                        several key benefits:</p>
+                    <ul class="">
+                        <li id="2185"
+                            class="mj mk fu ml b mm mn mo mp mq mr ms mt mu mv mw mx my mz na nb nc nd ne nf ng nm nn no bk">
+                            <code class="cx nh ni nj nk b">Security:</code> By
+                            leveraging predefined enumerations and data validations,
+                            the approach helps prevent errors and vulnerabilities in
+                            the queries.
+                        </li>
+                        <li id="830a"
+                            class="mj mk fu ml b mm np mo mp mq nq ms mt mu nr mw mx my ns na nb nc nt ne nf ng nm nn no bk">
+                            <code class="cx nh ni nj nk b">Accuracy:</code> The
+                            function ensures that the generated SQL queries are
+                            correctly formatted and adhere to the expected criteria.
+                        </li>
+                    </ul>
+                    <p id="8795"
+                        class="pw-post-body-paragraph mj mk fu ml b mm mn mo mp mq mr ms mt mu mv mw mx my mz na nb nc nd ne nf ng fn bk">
+                        In essence, this step integrates the validated data into
+                        well-structured SQL queries, combining conditions and logic
+                        operators effectively.</p>
+                    <pre
+                        class="oq or os ot ou pu nk pv bp pw bb bk"><span id="85d4" class="px nv fu nk b bg py pz l qa qb">from pydantic import BaseModel, Field, validator<br/>from typing import Union<br/><br/>class sql_comparison(BaseModel):<br/>    column: column_names = Field(..., title=&quot;Table Column&quot;, description=&quot;Column in the Table&quot;)<br/>    compare: sql_compare = Field(..., title=&quot;Comparison Operator&quot;, description=&quot;Comparison Operator&quot;)<br/>    value: Union[str, Departments, EmpLevel] = Field(..., title=&quot;Value&quot;, description=&quot;Value to Compare&quot;)<br/>    <br/>class sql_logic_condition(BaseModel):<br/>    logic: sql_logic_operator = Field(..., title=&quot;Logic Operator&quot;, description=&quot;Logic Operator&quot;)<br/>    comparison: sql_comparison = Field(..., title=&quot;Comparison&quot;, description=&quot;Comparison&quot;)<br/><br/>class SQLQuery(BaseModel):<br/>    sql: sql_type = Field(..., title=&quot;SQL Type&quot;, description=&quot;SQL Type&quot;)<br/>    columns: list[column_names] = Field(..., title=&quot;Columns&quot;, description=&quot;Columns to Select&quot;)<br/>    table: str = Field(..., title=&quot;Table&quot;, description=&quot;Table Name&quot;)<br/>    conditions: List[sql_logic_condition] = Field(..., title=&quot;Conditions&quot;, description=&quot;List of Conditions with Logic&quot;)<br/>    order: Optional[sql_order] = Field(None, title=&quot;Order&quot;, description=&quot;Order&quot;)<br/>    limit: Optional[int] = Field(None, title=&quot;Limit&quot;, description=&quot;Limit&quot;)</span></pre>
+                    <h1 id="e965"
+                        class="ov nv fu bf nw ow ox oy oa oz pa pb oe pc pd pe pf pg ph pi pj pk pl pm pn po bk">
+                        Step 5: Query Substrate endpoint to create SQL JSON
+                        Structure</h1>
+                    <p id="e82b"
+                        class="pw-post-body-paragraph mj mk fu ml b mm pp mo mp mq pq ms mt mu pr mw mx my ps na nb nc pt ne nf ng fn bk">
+                        Now that our <strong class="ml fv"><em class="qf">SQLQuery</em></strong> class has been
+                        fully built out, we are ready to start hitting <a class="af nl" href="http://substrate.run"
+                            rel="noopener ugc nofollow" target="_blank">Substrate</a> through their <strong
+                            class="ml fv">ComputeJSON</strong>() endpoint for
+                        generation.</p>
+                    <ol class="">
+                        <li id="9034"
+                            class="mj mk fu ml b mm mn mo mp mq mr ms mt mu mv mw mx my mz na nb nc nd ne nf ng qg nn no bk">
+                            We first enter out question, in this case I wanted to
+                            show the chaining of comparison statements.</li>
+                        <li id="1ae5"
+                            class="mj mk fu ml b mm np mo mp mq nq ms mt mu nr mw mx my ns na nb nc nt ne nf ng qg nn no bk">
+                            We then create our run shown as <strong class="ml fv"><em class="qf">a</em></strong> where
+                            we are defining what we want substrate to do.</li>
+                        <li id="8e02"
+                            class="mj mk fu ml b mm np mo mp mq nq ms mt mu nr mw mx my ns na nb nc nt ne nf ng qg nn no bk">
+                            Then kick-off the run by simply calling <strong class="ml fv"><em
+                                    class="qf">substrate.run(a)</em></strong></li>
+                        <li id="6725"
+                            class="mj mk fu ml b mm np mo mp mq nq ms mt mu nr mw mx my ns na nb nc nt ne nf ng qg nn no bk">
+                            Wait for the completion, before getting the <strong class="ml fv">json_object</strong></li>
+                        <li id="55f4"
+                            class="mj mk fu ml b mm np mo mp mq nq ms mt mu nr mw mx my ns na nb nc nt ne nf ng qg nn no bk">
+                            Finally, we format the response as a <strong class="ml fv">SQLQuery</strong> object</li>
+                    </ol>
+                    <pre
+                        class="oq or os ot ou pu nk pv bp pw bb bk"><span id="e057" class="px nv fu nk b bg py pz l qa qb">question = &quot;can you provide me with the the amount of employee id and salary in the Account department that has a salary greater than 50000 in descending order?&quot;<br/>a = ComputeJSON(<br/>    prompt=question,<br/>    json_schema=SQLQuery.model_json_schema(),<br/>)<br/>res = substrate.run(a)<br/>res_json = res.get(a).json_object<br/>query_formatted = SQLQuery(**res_json)<br/>res_json</span></pre>
+                    <p id="96a3"
+                        class="pw-post-body-paragraph mj mk fu ml b mm mn mo mp mq mr ms mt mu mv mw mx my mz na nb nc nd ne nf ng fn bk">
+                        We now have our query!!!</p>
+                    <pre
+                        class="oq or os ot ou pu nk pv bp pw bb bk"><span id="60b9" class="px nv fu nk b bg py pz l qa qb">{&#x27;sql&#x27;: &#x27;SELECT&#x27;,<br/> &#x27;columns&#x27;: [&#x27;employee_id&#x27;, &#x27;salary&#x27;],<br/> &#x27;table&#x27;: &#x27;employees&#x27;,<br/> &#x27;conditions&#x27;: [{&#x27;logic&#x27;: &#x27;AND&#x27;,<br/>   &#x27;comparison&#x27;: {&#x27;column&#x27;: &#x27;dept_id&#x27;, &#x27;compare&#x27;: &#x27;=&#x27;, &#x27;value&#x27;: &#x27;ACCOUNTING&#x27;}},<br/>  {&#x27;logic&#x27;: &#x27;AND&#x27;,<br/>   &#x27;comparison&#x27;: {&#x27;column&#x27;: &#x27;salary&#x27;, &#x27;compare&#x27;: &#x27;&gt;&#x27;, &#x27;value&#x27;: &#x27;50000&#x27;}}],<br/> &#x27;order&#x27;: &#x27;DESC&#x27;,<br/> &#x27;limit&#x27;: None}</span></pre>
+                    <h1 id="ec3d"
+                        class="ov nv fu bf nw ow ox oy oa oz pa pb oe pc pd pe pf pg ph pi pj pk pl pm pn po bk">
+                        Step 6: Formatting Query Response</h1>
+                    <p id="02cb"
+                        class="pw-post-body-paragraph mj mk fu ml b mm pp mo mp mq pq ms mt mu pr mw mx my ps na nb nc pt ne nf ng fn bk">
+                        With the <strong class="ml fv"><em class="qf">SQLQuery</em></strong> object ready, we
+                        construct the SQL string by parsing and combining its
+                        components into the proper SQL format.</p>
+                    <pre
+                        class="oq or os ot ou pu nk pv bp pw bb bk"><span id="079f" class="px nv fu nk b bg py pz l qa qb"># Generate the initial Base Query with no comparisons<br/>generated_query = f&quot;{query_formatted.sql} {&#x27;, &#x27;.join([col.value for col in query_formatted.columns])} FROM {query_formatted.table}&quot;<br/><br/># Check for additional conditions<br/>if query_formatted.conditions:<br/>    # Replace first logical operator with WHERE<br/>    generated_query += &quot; WHERE &quot;<br/><br/>    # For each condition, append it the query in the correct format<br/>    for i, condition in enumerate(query_formatted.conditions):<br/>        if i &gt; 0:<br/>            generated_query += f&quot; {condition.logic} &quot;<br/>        generated_query += f&quot;{condition.comparison.column} {condition.comparison.compare} {condition.comparison.value}&quot;<br/><br/># if there is an ordering rule, then format and append<br/>if query_formatted.order:<br/>    generated_query += f&quot; ORDER BY {&#x27;, &#x27;.join([col.value for col in query_formatted.columns])} {query_formatted.order}&quot;<br/><br/># if there is a limit, then format and append<br/>if query_formatted.limit:<br/>    generated_query += f&quot; LIMIT {query_formatted.limit}&quot;<br/><br/><br/>generated_query</span></pre>
+                    <p id="dd16"
+                        class="pw-post-body-paragraph mj mk fu ml b mm mn mo mp mq mr ms mt mu mv mw mx my mz na nb nc nd ne nf ng fn bk">
+                        FINAL QUERY</p>
+                    <pre
+                        class="oq or os ot ou pu nk pv bp pw bb bk"><span id="a967" class="px nv fu nk b bg py pz l qa qb">SELECT employee_id, salary <br/>FROM employees <br/>WHERE dept_id = ACCOUNTING <br/>AND salary &gt; 50000 <br/>ORDER BY employee_id, salary DESC</span></pre>
+                    <h1 id="f0d1"
+                        class="ov nv fu bf nw ow ox oy oa oz pa pb oe pc pd pe pf pg ph pi pj pk pl pm pn po bk">
+                        Next Steps</h1>
+                    <p id="bde6"
+                        class="pw-post-body-paragraph mj mk fu ml b mm pp mo mp mq pq ms mt mu pr mw mx my ps na nb nc pt ne nf ng fn bk">
+                        I will continue to add to this to:</p>
+                    <ul class="">
+                        <li id="ed77"
+                            class="mj mk fu ml b mm mn mo mp mq mr ms mt mu mv mw mx my mz na nb nc nd ne nf ng nm nn no bk">
+                            allow for azure/gcp sql exporting and auto mapping
+                            ability.</li>
+                        <li id="b376"
+                            class="mj mk fu ml b mm np mo mp mq nq ms mt mu nr mw mx my ns na nb nc nt ne nf ng nm nn no bk">
+                            Change Sql mapping to allow for nested Queries</li>
+                    </ul>
+                    <h1 id="fbdf"
+                        class="ov nv fu bf nw ow ox oy oa oz pa pb oe pc pd pe pf pg ph pi pj pk pl pm pn po bk">
+                        Conclusion</h1>
+                    <p id="2c05"
+                        class="pw-post-body-paragraph mj mk fu ml b mm pp mo mp mq pq ms mt mu pr mw mx my ps na nb nc pt ne nf ng fn bk">
+                        My team has encountered consistent issues with SQL
+                        generation through LLM’s. The primary challenge isn’t
+                        related to formatting but rather to context.</p>
+                    <blockquote class="qc qd qe">
+                        <p id="4536"
+                            class="mj mk qf ml b mm mn mo mp mq mr ms mt mu mv mw mx my mz na nb nc nd ne nf ng fn bk">
+                            Even with optimized prompt structures that include all
+                            necessary rows and context, we still end up consuming
+                            excessive tokens for even the simplest queries. The
+                            `ComputeJSON()` function does not count the
+                            `json_schema` as ingested tokens</p>
+                    </blockquote>
+                    <p id="3937"
+                        class="pw-post-body-paragraph mj mk fu ml b mm mn mo mp mq mr ms mt mu mv mw mx my mz na nb nc nd ne nf ng fn bk">
+                        Our strategy, which focuses on minimizing the context
+                        required in prompts, has proven to be effective. By solely
+                        including the query itself and eliminating external context,
+                        we have significantly reduced token usage by over 90%.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</html>

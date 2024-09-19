@@ -9,7 +9,7 @@ export const Header = () => {
     { href: "/", label: "Home" },
     { href: "/chat", label: "Chat" },
     { href: "/about", label: "About" },
-    { href: "#", label: "Blog" },
+    { href: "/blog", label: "Blog" },
     { href: "#", label: "Help" },
   ];
 

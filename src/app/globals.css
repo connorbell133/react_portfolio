@@ -38,4 +38,93 @@
   .card {
     @apply p-10 border border-[#222222]/10 rounded-3xl shadow-[0_7px_14px_#EAEAEA] max-w-xs w-full;
   }
+  /* In a global CSS file or component-specific CSS module */
+  .markdown {
+    font-family: Arial, sans-serif;
+  }
+
+/* General Layout */
+.markdown body {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  line-height: 1.6;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f4f4f9;
+}
+
+.markdown h1, h2, h3, h4 {
+  color: #2C3E50;
+  border-bottom: 2px solid #e67e22;
+  padding-bottom: 0.5em;
+  margin-top: 1em;
+}
+
+.markdown h1 {
+  font-size: 2.5rem;
+}
+
+.markdown h2 {
+  font-size: 2rem;
+}
+
+.markdown h3 {
+  font-size: 1.5rem;
+}
+
+.markdown p {
+  margin-bottom: 1.5em;
+  font-size: 1.1rem;
+}
+
+.markdown a {
+  color: #3498db;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom 0.3s;
+}
+
+.markdown a:hover {
+  border-bottom: 1px solid #3498db;
+}
+
+/* Styling for code blocks */
+.markdown pre, code {
+  background-color: #1e272e;
+  color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+}
+
+.markdown pre {
+  margin-bottom: 1.5em;
+}
+
+.markdown code {
+  font-size: 0.95rem;
+}
+
+/* Styling for lists */
+.markdown ul {
+  padding-left: 20px;
+  margin-bottom: 1.5em;
+}
+
+.markdown ul li {
+  list-style-type: disc;
+  margin-bottom: 0.5em;
+}
+
+/* Image styling */
+.markdown img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 1.5em;
+}
+
+
 }

@@ -22,36 +22,39 @@ interface Repository {
   // Add other relevant fields based on the data structure
 }
 const RepoCard = (repo_temp: Repository) => (
-  <div className="card p-6 bg-white rounded-lg shadow-lg max-w-sm flex flex-col justify-between transition-transform transform hover:scale-105 duration-300">
+  <div className="card p-6 bg-gradient-to-r from-white to-gray-50 rounded-xl shadow-lg max-w-sm flex flex-col justify-between transition-transform transform hover:scale-105 hover:shadow-2xl duration-300">
     <div>
-      <h2 className="text-2xl font-bold text-gray-900 mb-4">
+      <h2 className="text-3xl font-extrabold text-gray-900 mb-4">
         {repo_temp.name}
       </h2>
-      <div className="flex items-center gap-2 mb-4">
+      <div className="flex flex-wrap items-center gap-2 mb-4">
         {Array.isArray(repo_temp.topics) && repo_temp.topics.length > 0 ? (
           repo_temp.topics.map((tech, index) => (
             <span
               key={index}
-              className="px-3 py-1 bg-gray-100 text-sm text-gray-800 rounded-full shadow-inner"
+              className="px-3 py-1 bg-blue-100 text-sm text-blue-800 font-semibold rounded-full shadow-inner transition-colors duration-200 hover:bg-blue-200"
             >
               {tech}
             </span>
           ))
         ) : (
-          <div>No technologies available</div>
+          <div className="text-sm text-gray-500">No technologies available</div>
         )}
       </div>
-      <p className="text-gray-600 text-base leading-relaxed mb-6">
+      <p className="text-gray-700 text-base leading-relaxed mb-6">
         {repo_temp.description}
       </p>
     </div>
-    <div className="mt-auto flex justify-between items-center pt-4">
+    <div className="mt-auto flex justify-between items-center pt-4 border-t border-gray-200">
       <Link href={repo_temp.html_url}>
-        <button className="btn btn-primary">View Repo</button>
+        <button className="btn btn-primary bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-200">
+          View Repo
+        </button>
       </Link>
       {repo_temp.html_url && (
-        <button className="btn btn-transparent">
-          Read Article <span className="ml-1">→</span>
+        <button className="btn btn-transparent text-blue-600 font-semibold flex items-center align-middle">
+          <span className="hover:underline ">Read Article</span>
+          <span className="ml-1 text-xl">→</span>
         </button>
       )}
     </div>
