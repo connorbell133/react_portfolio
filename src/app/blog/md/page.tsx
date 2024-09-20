@@ -3,8 +3,10 @@ import React, { useEffect, useState, useCallback, Suspense } from "react";
 import { Header } from "@/sections/Header";
 import { Footer } from "@/sections/Footer";
 import { useSearchParams } from "next/navigation";
-import Markdown from "react-markdown";
+import dynamic from "next/dynamic";
 import remarkGfm from "remark-gfm";
+
+const Markdown = dynamic(() => import("react-markdown"), { ssr: false });
 
 function ArticleContent() {
   const [loading, setLoading] = useState(true);
@@ -50,7 +52,11 @@ function ArticleContent() {
   if (error) return <div>Error: {error}</div>;
   if (!content) return <div>No content available</div>;
 
-  return <Markdown remarkPlugins={[remarkGfm]}>{content}</Markdown>;
+  return (
+    <Markdown className="markdown" remarkPlugins={[remarkGfm]}>
+      {content}
+    </Markdown>
+  );
 }
 
 export default function ArticlePage() {
