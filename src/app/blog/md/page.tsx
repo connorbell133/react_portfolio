@@ -1,12 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, Suspense } from "react";
 import { Header } from "@/sections/Header";
 import { Footer } from "@/sections/Footer";
 import { useSearchParams } from "next/navigation";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-export default function ArticlePage() {
+function ArticleContent() {
   const [loading, setLoading] = useState(true);
   const [content, setContent] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -14,7 +14,7 @@ export default function ArticlePage() {
   const searchParams = useSearchParams();
   const article = searchParams.get("article");
 
-  const fetchContent = async () => {
+  const fetchContent = useCallback(async () => {
     setLoading(true);
     setError(null);
 
@@ -38,41 +38,28 @@ export default function ArticlePage() {
     } finally {
       setLoading(false);
     }
-  };
-
-  useEffect(() => {
-    fetchContent();
   }, [article]);
 
+  useEffect(() => {
+    if (article) {
+      fetchContent();
+    }
+  }, [article, fetchContent]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!content) return <div>No content available</div>;
+
+  return <Markdown remarkPlugins={[remarkGfm]}>{content}</Markdown>;
+}
+
+export default function ArticlePage() {
   return (
     <>
       <Header />
-      <div className="container mx-auto px-4 py-8">
-        {loading ? (
-          <div className="flex justify-center items-center h-screen">
-            <div className="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12"></div>
-            <p className="ml-4 text-gray-600 text-lg">Loading article...</p>
-          </div>
-        ) : error ? (
-          <div className="flex flex-col items-center justify-center h-screen">
-            <p className="text-red-500 text-lg mb-4">
-              Oops! There was an error: {error}
-            </p>
-            <button
-              onClick={fetchContent}
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-            >
-              Retry
-            </button>
-          </div>
-        ) : (
-          <div className="prose prose-lg max-w-full mx-auto mt-8">
-            <Markdown className="markdown" remarkPlugins={[remarkGfm]}>
-              {content}
-            </Markdown>
-          </div>
-        )}
-      </div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <ArticleContent />
+      </Suspense>
       <Footer />
     </>
   );
