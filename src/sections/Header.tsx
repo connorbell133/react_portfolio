@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import ArrowRight from "@/assets/arrow-right.svg";
-import Logo from "@/assets/logosaas.png";
+import Logo from "@/assets/me_avatar.png";
 import Image from "next/image";
 import MenuIcon from "@/assets/menu.svg";
 import Link from "next/link";

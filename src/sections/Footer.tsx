@@ -1,5 +1,5 @@
 import Image from "next/image";
-import logo from "@/assets/logosaas.png";
+import logo from "@/assets/me_avatar.png";
 import SocialX from "@/assets/social-x.svg";
 import SocialInsta from "@/assets/social-insta.svg";
 import SocialLinkedIn from "@/assets/social-linkedin.svg";
