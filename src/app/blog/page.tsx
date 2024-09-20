@@ -3,12 +3,20 @@ import { useEffect, useState } from "react";
 import { Header } from "@/sections/Header";
 import { Footer } from "@/sections/Footer";
 import { BlogMenu } from "@/sections/BlogMenu";
-import { url } from "inspector";
+
+type BlogPost = {
+  title: string;
+  href: string;
+  url: string;
+  date: string;
+  tags: string[];
+  description: string;
+};
 
 export default function About() {
   const [loading, setLoading] = useState(true);
-  const [blogPosts, setBlogPosts] = useState([]);
-  const [error, setError] = useState(null);
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   // Fetch the articles from the API on page load
   useEffect(() => {
@@ -35,34 +43,37 @@ export default function About() {
           href: article.href,
           url: article.url,
           date: "2021-01-01", // Replace with actual date
-          tags: ["test"], //fake tages
-          description: "this and that",
+          tags: article.tags || [], // Ensure tags are included
+          description: article.description || "", // Ensure description is included
         }));
 
         setBlogPosts(articles); // Replace blog posts with fetched articles
       } catch (err) {
-        setError(err.message);
+        setError((err as Error).message);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchArticles(); // Call the function when the component mounts
-  }, []); // Empty dependency array ensures this runs once on mount
+    fetchArticles();
+  }, []);
 
   return (
-    <>
+    <div>
       <Header />
-
-      {loading ? (
-        <p>Loading articles...</p>
-      ) : error ? (
-        <p>Error: {error}</p>
-      ) : (
-        <BlogMenu blogPosts={blogPosts} />
-      )}
-
+      <BlogMenu blogPosts={blogPosts} />
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>}
+      <div>
+        {blogPosts.map((post) => (
+          <div key={post.href}>
+            <h2>{post.title}</h2>
+            <a href={post.href}>{post.url}</a>
+            <p>{post.date}</p>
+          </div>
+        ))}
+      </div>
       <Footer />
-    </>
+    </div>
   );
 }

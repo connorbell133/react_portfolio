@@ -1,9 +1,10 @@
 import React from "react";
 
 interface BlogPost {
-  date: string;
   title: string;
   href: string;
+  url: string;
+  date: string;
   tags: string[];
   description: string;
 }
@@ -19,60 +20,33 @@ export const BlogMenu: React.FC<BlogMenuProps> = ({ blogPosts }) => {
         <div className="flex flex-row gap-8 justify-center">
           {/* Sidebar */}
           <div className="hidden md:block w-1/6 rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-[#4F4D55]">Categories</h3>
-            <ul className="mt-4">
-              {[
-                { label: "genai", count: 2 },
-                { label: "LLM", count: 1 },
-                { label: "SQL", count: 1 },
-                { label: "Substrate", count: 1 },
-                { label: "chatbot", count: 1 },
-                { label: "site", count: 1 },
-              ].map((category, idx) => (
-                <li key={idx} className="my-2">
-                  <a
-                    href={`/tags/${category.label}`}
-                    className="text-[16px] text-start tracking-tighter font-semibold text-[#4F4D55]"
-                  >
-                    {category.label} ({category.count})
-                  </a>
-                </li>
-              ))}
-            </ul>
+            {/* Sidebar content */}
           </div>
-
-          {/* Blog Posts */}
-          <div className="flex flex-col w-full md:w-1/2">
+          {/* Blog posts */}
+          <div className="w-full md:w-5/6">
             <ul>
               {blogPosts.map((post, idx) => (
                 <li key={idx} className="mb-8">
-                  <article href={post.href} className="rounded-lg p-6">
-                    <dl className="mb-1">
-                      <dt className="sr-only">Published on</dt>
-                      <dd className="text-[#4F4D55]/80">
-                        <time dateTime={post.date}>
-                          {new Date(post.date).toLocaleDateString()}
-                        </time>
-                      </dd>
-                    </dl>
-                    <h2 className="text-xl text-start tracking-tighter font-semibold text-[#4F4D55] mb-1">
-                      <a href={post.href} className="hover:underline">
-                        {post.title}
-                      </a>
-                    </h2>
-                    <div className="flex flex-wrap space-x-3 mb-1">
-                      {post.tags.map((tag, index) => (
-                        <a
-                          key={index}
-                          href={`/tags/${tag}`}
-                          className="text-sm text-[#4F4D55] hover:text-primary-400"
-                        >
-                          {tag}
-                        </a>
-                      ))}
-                    </div>
-                    <p className="text-gray-300">{post.description}</p>
-                  </article>
+                  <a href={post.href} className="block rounded-lg p-6">
+                    <article>
+                      <dl className="mb-1">
+                        <dt className="sr-only">Published on</dt>
+                        <dd className="text-[#4F4D55]/80">{post.date}</dd>
+                      </dl>
+                      <h2 className="text-2xl font-bold">{post.title}</h2>
+                      <p className="mt-2">{post.description}</p>
+                      <div className="mt-4">
+                        {post.tags.map((tag, tagIdx) => (
+                          <span
+                            key={tagIdx}
+                            className="mr-2 bg-gray-200 text-gray-800 px-2 py-1 rounded"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </article>
+                  </a>
                 </li>
               ))}
             </ul>

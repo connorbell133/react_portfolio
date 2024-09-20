@@ -38,93 +38,86 @@
   .card {
     @apply p-10 border border-[#222222]/10 rounded-3xl shadow-[0_7px_14px_#EAEAEA] max-w-xs w-full;
   }
-  /* In a global CSS file or component-specific CSS module */
   .markdown {
-    font-family: Arial, sans-serif;
+    @apply font-sans text-[#010D3E] max-w-4xl mx-auto p-6 md:p-10 bg-[#f4f4f9] rounded-lg shadow-lg;
   }
 
-/* General Layout */
-.markdown body {
-  font-family: 'Arial', sans-serif;
-  color: #333;
-  line-height: 1.6;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f4f4f9;
-}
+  /* Headings */
+  .markdown h1, .markdown h2, .markdown h3, .markdown h4 {
+    @apply pb-1 mt-6;
+  }
 
-.markdown h1, h2, h3, h4 {
-  color: #2C3E50;
-  border-bottom: 2px solid #e67e22;
-  padding-bottom: 0.5em;
-  margin-top: 1em;
-}
+  .markdown h1 {
+    @apply text-xl md:text-[40px] md:leading-[60px] font-bold tracking-tighter bg-gradient-to-b from-black to-[#001E80] text-transparent bg-clip-text;
+  }
 
-.markdown h1 {
-  font-size: 2.5rem;
-}
+  .markdown h2 {
+    @apply text-2xl md:text-3xl font-semibold text-[#34495e] mt-6;
+  }
 
-.markdown h2 {
-  font-size: 2rem;
-}
+  .markdown h3 {
+    @apply text-xl md:text-2xl font-medium text-[#4a90e2] mt-5;
+  }
 
-.markdown h3 {
-  font-size: 1.5rem;
-}
+  .markdown h4 {
+    @apply text-lg md:text-xl font-normal text-[#7f8c8d] mt-4;
+  }
 
-.markdown p {
-  margin-bottom: 1.5em;
-  font-size: 1.1rem;
-}
+  /* Paragraphs */
+  .markdown p {
+    @apply text-xs md:text-base leading-6 md:leading-7 mb-6;
+  }
 
-.markdown a {
-  color: #3498db;
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-bottom 0.3s;
-}
+  /* Links */
+  .markdown a {
+    @apply text-[#3498db] hover:text-[#2980b9] border-b border-transparent hover:border-[#2980b9] transition-all;
+  }
 
-.markdown a:hover {
-  border-bottom: 1px solid #3498db;
-}
+  .markdown pre {
+    @apply bg-[#1e272e] text-white p-1 md:p-4 rounded-md font-mono text-xs md:text-base;
+  }
+  /* Code Blocks */
+  .markdown code {
+    @apply bg-[#1e272e] text-white p-1 md:p-4 rounded-md font-mono text-xs md:text-base;
+  }
 
-/* Styling for code blocks */
-.markdown pre, code {
-  background-color: #1e272e;
-  color: #fff;
-  padding: 10px;
-  border-radius: 4px;
-  overflow-x: auto;
-  font-family: 'Courier New', monospace;
-  font-size: 1rem;
-}
+  .markdown pre {
+    @apply mb-6 overflow-x-auto;
+  }
 
-.markdown pre {
-  margin-bottom: 1.5em;
-}
+  .markdown code {
+    @apply inline-block px-1 py-0.5 rounded-md text-xs;
+  }
 
-.markdown code {
-  font-size: 0.95rem;
-}
+  /* Lists */
+  .markdown ul {
+    @apply pl-5 md:pl-6 mb-6 list-disc;
+  }
 
-/* Styling for lists */
-.markdown ul {
-  padding-left: 20px;
-  margin-bottom: 1.5em;
-}
+  .markdown ul li {
+    @apply text-xs md:text-base leading-6 md:leading-5 mb-2 text-[#2c3e50];
+  }
 
-.markdown ul li {
-  list-style-type: disc;
-  margin-bottom: 0.5em;
-}
+  /* Image Styling */
+  .markdown img {
+    @apply max-w-full h-auto mb-6 rounded-lg shadow-md;
+  }
 
-/* Image styling */
-.markdown img {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 1.5em;
-}
+  /* Tables */
+  .markdown table {
+    @apply w-full mb-6 border-collapse table-auto;
+  }
 
+  .markdown th, .markdown td {
+    @apply border px-4 py-2 text-left;
+  }
 
+  .markdown th {
+    @apply bg-gray-100 font-semibold;
+  }
+
+  /* Blockquote */
+  .markdown blockquote {
+    @apply pl-4 border-l-4 border-[#3498db] italic text-[#34495e] mb-6;
+  }
 }
