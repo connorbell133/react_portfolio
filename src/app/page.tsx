@@ -15,7 +15,7 @@ export default function Home() {
       <LogoTicker />
       <AboutMeHero />
       <Testimonials />
-      <CallToAction />
+      {/* <CallToAction /> */}
       <Footer />
     </>
   );

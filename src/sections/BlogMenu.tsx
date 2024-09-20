@@ -15,31 +15,38 @@ interface BlogMenuProps {
 
 export const BlogMenu: React.FC<BlogMenuProps> = ({ blogPosts }) => {
   return (
-    <section className="pt-8 pb-20 md:pt-5 md:pb-10 bg-[#EAEEFE] overflow-x-clip section-heading">
+    <section className="pt-12 pb-24 bg-[#EAEEFE]">
       <div className="container mx-auto">
-        <div className="flex flex-row gap-8 justify-center">
+        <div className="flex flex-row gap-10 justify-center">
           {/* Sidebar */}
-          <div className="hidden md:block w-1/6 rounded-lg p-6">
-            {/* Sidebar content */}
+          <div className="hidden md:block w-1/6 p-6">
+            {/* Add sidebar content here if needed */}
           </div>
           {/* Blog posts */}
           <div className="w-full md:w-5/6">
-            <ul>
+            <ul className="space-y-12">
               {blogPosts.map((post, idx) => (
-                <li key={idx} className="mb-8">
-                  <a href={post.href} className="block rounded-lg p-6">
-                    <article>
-                      <dl className="mb-1">
+                <li key={idx} className="group">
+                  <a
+                    href={post.href}
+                    className="block p-8 bg-white rounded-xl shadow-md transition duration-300 hover:shadow-lg hover:bg-gray-100"
+                  >
+                    <article className="space-y-4">
+                      <dl className="text-sm text-gray-500">
                         <dt className="sr-only">Published on</dt>
-                        <dd className="text-[#4F4D55]/80">{post.date}</dd>
+                        <dd>{post.date}</dd>
                       </dl>
-                      <h2 className="text-2xl font-bold">{post.title}</h2>
-                      <p className="mt-2">{post.description}</p>
-                      <div className="mt-4">
+                      <h2 className="text-2xl font-semibold text-gray-800 group-hover:text-gray-900 transition duration-300">
+                        {post.title}
+                      </h2>
+                      <p className="text-gray-600 leading-relaxed line-clamp-3">
+                        {post.description}
+                      </p>
+                      <div className="mt-4 space-x-2">
                         {post.tags.map((tag, tagIdx) => (
                           <span
                             key={tagIdx}
-                            className="mr-2 bg-gray-200 text-gray-800 px-2 py-1 rounded"
+                            className="inline-block text-xs font-medium text-white bg-[#4F4D55] px-3 py-1 rounded-full"
                           >
                             {tag}
                           </span>

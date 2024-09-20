@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { Header } from "@/sections/Header";
 import { Footer } from "@/sections/Footer";
 import { BlogMenu } from "@/sections/BlogMenu";
-
+import Image from "next/image";
+import loadingGif from "@/assets/loading-gif.gif";
 type BlogPost = {
   title: string;
   href: string;
@@ -61,6 +62,14 @@ export default function About() {
   return (
     <div>
       <Header />
+      {loading && (
+        <div className="w-full items-center m-auto flex flex-col py-10">
+          <Image src={loadingGif} alt="Loading" className="w-1/6" />
+          <p>Loading, please wait...</p>
+        </div>
+      )}
+      {error && <p>Error: {error}</p>}
+
       <BlogMenu blogPosts={blogPosts} />
       {/* {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}

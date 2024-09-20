@@ -12,9 +12,9 @@ export const Header = () => {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/chat", label: "Chat" },
-    { href: "/about", label: "About" },
     { href: "/blog", label: "Blog" },
-    { href: "#", label: "Help" },
+    { href: "/about", label: "About" },
+    // { href: "#", label: "Help" },
   ];
 
   const toggleMenu = () => {
@@ -27,10 +27,10 @@ export const Header = () => {
         <p className="text-white/60 hidden md:block">
           Streamline your workflow and boost your productivity
         </p>
-        <div className="inline-flex gap-1 items-center">
+        {/* <div className="inline-flex gap-1 items-center">
           <p>Get started for free</p>
           <ArrowRight className="h-4 w-4 inline-flex justify-center items-center" />
-        </div>
+        </div> */}
       </div>
       <div className="py-5">
         <div className="container">
@@ -55,9 +55,11 @@ export const Header = () => {
                   {link.label}
                 </a>
               ))}
-              <button className="bg-black text-white px-4 py-2 rounded-lg font-medium inline-flex align-items justify-center tracking-tight">
-                Get for free
-              </button>
+              <Link href="mailto:connor.m.bell13@gmail.com">
+                <button className="bg-black text-white px-4 py-2 rounded-lg font-medium inline-flex align-items justify-center tracking-tight">
+                  Contact
+                </button>
+              </Link>
             </nav>
           </div>
         </div>
@@ -70,9 +72,11 @@ export const Header = () => {
                 {link.label}
               </a>
             ))}
-            <button className="bg-black text-white px-4 py-2 rounded-lg font-medium tracking-tight">
-              Get for free
-            </button>
+            <Link href="mailto:connor.m.bell13@gmail.com">
+              <button className="bg-black text-white px-4 py-2 rounded-lg font-medium tracking-tight">
+                Get in touch
+              </button>
+            </Link>
           </nav>
           <button
             className="absolute top-5 right-5 text-3xl font-bold text-black"

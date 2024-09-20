@@ -12,7 +12,7 @@ export default function About() {
       <Hero />
       <GithubShowcase />
       <CollabShowcase />
-      <CallToAction />
+      {/* <CallToAction /> */}
       <Footer />
     </>
   );

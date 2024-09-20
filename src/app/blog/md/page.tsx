@@ -5,7 +5,8 @@ import { Footer } from "@/sections/Footer";
 import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import remarkGfm from "remark-gfm";
-
+import loadingGif from "@/assets/loading-gif.gif";
+import Image from "next/image";
 const Markdown = dynamic(() => import("react-markdown"), { ssr: false });
 
 function ArticleContent() {
@@ -48,7 +49,14 @@ function ArticleContent() {
     }
   }, [article, fetchContent]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) {
+    return (
+      <div className="w-full items-center m-auto flex flex-col py-10">
+        <Image src={loadingGif} alt="Loading" className="w-1/6" />
+        <p>Loading, please wait...</p>
+      </div>
+    );
+  }
   if (error) return <div>Error: {error}</div>;
   if (!content) return <div>No content available</div>;
 
