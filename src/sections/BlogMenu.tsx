@@ -15,7 +15,7 @@ interface BlogMenuProps {
 
 export const BlogMenu: React.FC<BlogMenuProps> = ({ blogPosts }) => {
   return (
-    <section className="pt-8 pb-20 md:pt-5 md:pb-10 bg-[#EAEEFE] overflow-x-clip text-white">
+    <section className="pt-8 pb-20 md:pt-5 md:pb-10 bg-[#EAEEFE] overflow-x-clip section-heading">
       <div className="container mx-auto">
         <div className="flex flex-row gap-8 justify-center">
           {/* Sidebar */}

@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import ArrowRight from "@/assets/arrow-right.svg";
 import Logo from "@/assets/logosaas.png";
 import Image from "next/image";
@@ -5,6 +7,8 @@ import MenuIcon from "@/assets/menu.svg";
 import Link from "next/link";
 
 export const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/chat", label: "Chat" },
@@ -12,6 +16,10 @@ export const Header = () => {
     { href: "/blog", label: "Blog" },
     { href: "#", label: "Help" },
   ];
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
     <header className="sticky top-0 backdrop-blur-sm z-20">
@@ -30,7 +38,17 @@ export const Header = () => {
             <Link href="/">
               <Image src={Logo} alt="Saas Logo" height={40} width={40} />
             </Link>
-            <MenuIcon className="h-5 w-5 md:hidden" />
+            <div className="md:hidden">
+              <button onClick={toggleMenu}>
+                {isMenuOpen ? (
+                  <span className="h-5 w-5 text-3xl font-bold text-black">
+                    &times;
+                  </span>
+                ) : (
+                  <MenuIcon className="h-5 w-5" />
+                )}
+              </button>
+            </div>
             <nav className="hidden md:flex gap-6 text-black/60 items-center">
               {navLinks.map((link, index) => (
                 <a key={index} href={link.href}>
@@ -44,6 +62,26 @@ export const Header = () => {
           </div>
         </div>
       </div>
+      {isMenuOpen && (
+        <div className="md:hidden bg-white text-black absolute top-0 left-0 w-full h-screen z-10 flex flex-col items-center justify-center">
+          <nav className="flex flex-col gap-6 text-lg items-center">
+            {navLinks.map((link, index) => (
+              <a key={index} href={link.href} className="text-black/80">
+                {link.label}
+              </a>
+            ))}
+            <button className="bg-black text-white px-4 py-2 rounded-lg font-medium tracking-tight">
+              Get for free
+            </button>
+          </nav>
+          <button
+            className="absolute top-5 right-5 text-3xl font-bold text-black"
+            onClick={toggleMenu}
+          >
+            &times;
+          </button>
+        </div>
+      )}
     </header>
   );
 };

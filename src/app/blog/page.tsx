@@ -62,7 +62,7 @@ export default function About() {
     <div>
       <Header />
       <BlogMenu blogPosts={blogPosts} />
-      {loading && <p>Loading...</p>}
+      {/* {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       <div>
         {blogPosts.map((post) => (
@@ -72,7 +72,7 @@ export default function About() {
             <p>{post.date}</p>
           </div>
         ))}
-      </div>
+      </div> */}
       <Footer />
     </div>
   );
