@@ -14,6 +14,7 @@ export const Header = () => {
     { href: "/chat", label: "Chat" },
     { href: "/blog", label: "Blog" },
     { href: "/about", label: "About" },
+    { href: "/portfolio", label: "Portfolio" },
     // { href: "#", label: "Help" },
   ];
 

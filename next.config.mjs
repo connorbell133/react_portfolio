@@ -37,6 +37,7 @@ const nextConfig = {
         hostname: "miro.medium.com",
       },
     ],
+    domains: ["media.licdn.com"],
   },
 };
 

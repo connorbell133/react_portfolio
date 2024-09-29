@@ -99,7 +99,7 @@ function InputComponent({
         />
         {/* Send button inside the textarea container */}
         <button
-          className="absolute right-2 bottom-1 bg-[#535557] text-white px-2 py-2  rounded-full hover:bg-[#0077c7] transition-all"
+          className="absolute right-2 bottom-2 bg-[#535557] text-white px-2 py-2  rounded-full hover:bg-[#0077c7] transition-all"
           onClick={sendMessage}
         >
           <ArrowRight className="h-6 w-6 inline-flex justify-center items-center" />
