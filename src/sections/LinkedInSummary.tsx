@@ -374,21 +374,6 @@ export const LinkedIn: React.FC<LinkedInProps> = ({ linkedinInfo }) => {
         </div>
       </div>
 
-      {/* Skills Section */}
-      <div className="bg-gray-50 shadow-md p-6 rounded-lg max-w-4xl mx-auto">
-        <h2 className="text-2xl font-semibold text-gray-900 mb-6">Skills</h2>
-        <div className="flex flex-wrap gap-2">
-          {skills.map((skill, index) => (
-            <span
-              key={index}
-              className="bg-blue-100 text-blue-700 font-medium px-3 py-1 rounded-full"
-            >
-              {skill.name}
-            </span>
-          ))}
-        </div>
-      </div>
-
       {/* Education Section */}
       <div className="bg-gray-50 shadow-md p-6 rounded-lg max-w-4xl mx-auto">
         <h2 className="text-2xl font-semibold text-gray-900 mb-6">Education</h2>
@@ -428,7 +413,7 @@ export const LinkedIn: React.FC<LinkedInProps> = ({ linkedinInfo }) => {
         </div>
       </div>
 
-      {/* Projects Section */}
+      {/* Projects Section
       <div className="bg-gray-50 shadow-md p-6 rounded-lg max-w-4xl mx-auto">
         <h2 className="text-2xl font-semibold text-gray-900 mb-6">Projects</h2>
         <div className="space-y-6">
@@ -444,7 +429,7 @@ export const LinkedIn: React.FC<LinkedInProps> = ({ linkedinInfo }) => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* Volunteering Section */}
       <div className="bg-gray-50 shadow-md p-6 rounded-lg max-w-4xl mx-auto">
@@ -461,6 +446,21 @@ export const LinkedIn: React.FC<LinkedInProps> = ({ linkedinInfo }) => {
               <p className="text-md text-gray-600 mt-2">{vol.companyName}</p>
               <p className="text-gray-600 mt-1">{`${vol.start.year} - ${vol.end.year}`}</p>
             </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Skills Section */}
+      <div className="bg-gray-50 shadow-md p-6 rounded-lg max-w-4xl mx-auto">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-6">Skills</h2>
+        <div className="flex flex-wrap gap-2">
+          {skills.slice(0, 10).map((skill, index) => (
+            <span
+              key={index}
+              className="bg-blue-100 text-blue-700 font-medium px-3 py-1 rounded-full"
+            >
+              {skill.name}
+            </span>
           ))}
         </div>
       </div>

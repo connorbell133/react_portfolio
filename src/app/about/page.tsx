@@ -343,7 +343,7 @@ export default function About() {
           summary:
             "AI Solutions Engineer at Accenture Security with a passion for building scalable, AI-driven platforms that drive innovation and enhance security. \n\nI specialize in backend development, cloud platforms, and Multi-Model Systems.  I'm deeply interested in researching Agentic Frameworks to push the boundaries of technology.",
           headline:
-            "AI @ Accenture Security\n| Generative AI, Cloud Engineering, Cybersecurity",
+            "AI @ Accenture Security\nGenerative AI, Cloud Engineering, Cybersecurity",
           geo: {
             country: "United States",
             city: "Seattle, Washington",
@@ -397,7 +397,7 @@ export default function About() {
               multiLocaleCompanyName: { en_US: "Avanade" },
               location: "Seattle, Washington, United States",
               description:
-                "Data Loss Prevention Platform - Fortune 50 Company\n     • Built an Azure Databricks application to integrate log data from multiple sources, enhancing data exploration.\n     • Engineered an ETL platform to unify log data into a feature store, enabling future machine learning.\n     • Created dashboards to monitor high-risk users and detect data exfiltration.\n\nGenerative AI Security Application - Fortune 100 Company\n     • Developed a security platform using RAG applications to interpret cyber threats and provide actionable insights for Security Analysts.\n     • Led the project from concept to production.",
+                "Built a data loss prevention platform for a Fortune 50 company using Azure Databricks and ETL for log data, and developed a generative AI security platform for a Fortune 100 company using RAG for cyber threat analysis, leading both projects to production.",
               employmentType: "Full-time",
               start: { year: 2023, month: 10, day: 0 },
               end: { year: 2024, month: 5, day: 0 },
