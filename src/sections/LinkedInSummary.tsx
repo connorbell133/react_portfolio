@@ -360,7 +360,7 @@ export const LinkedIn: React.FC<LinkedInProps> = ({ linkedinInfo }) => {
         </h2>
         <p className="text-lg text-gray-700 leading-relaxed">
           <span>
-            In today's rapidly evolving AI landscape, as leading companies like
+            In todays rapidly evolving AI landscape, as leading companies like
             OpenAI, Amazon, and Google continue to train cutting-edge models,
             the true differentiators will be twofold: the ability to leverage
             Agentic Systems that autonomously execute workflows, and the mastery
