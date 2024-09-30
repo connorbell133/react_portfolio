@@ -26,7 +26,7 @@ const cleanMarkdown = (text: string) => {
 
 const ChatBox = ({ messages }: { messages: Message[] }) => {
   return (
-    <div className="p-4 text-m md:text-2xl h-[60%] overflow-y-auto text-white">
+    <div className="p-4 text-sm md:text-l h-[60%]  overflow-y-auto text-white">
       {messages.map((msg) => (
         <div
           key={msg.id}
@@ -37,12 +37,12 @@ const ChatBox = ({ messages }: { messages: Message[] }) => {
           <div
             className={`${
               msg.sender === "bot"
-                ? " text-left rounded-xl p-4"
-                : "bg-[#666a6d]/60 text-right rounded-xl md:rounded-full w-fit px-5 py-2"
+                ? " text-left rounded-xl p-4  leading-6 md:leading-7"
+                : "bg-[#666a6d]/60 text-right rounded-xl md:rounded-full w-fit px-5 py-2  leading-6 md:leading-7"
             }`}
           >
             {msg.sender === "bot" ? (
-              <ReactMarkdown className="prose prose-invert max-w-none text-white">
+              <ReactMarkdown className="prose prose-invert max-w-none text-white ">
                 {cleanMarkdown(msg.text)}
               </ReactMarkdown>
             ) : (
@@ -139,7 +139,11 @@ export const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState("");
   const [apiKey, setApiKey] = useState<string>("");
-
+  const [submitted, setSubmitted] = useState(false);
+  const handleSubmit = () => {
+    console.log("API Key submitted:", apiKey);
+    setSubmitted(true); // Shrinks the form once submitted
+  };
   // Function to send a message
   const sendMessage = async () => {
     if (inputText.trim()) {
@@ -182,35 +186,36 @@ export const Chat = () => {
 
   return (
     <section className="h-screen w-screen flex-col overflow-hidden bg-[#212121]">
-      <div className="h-full min-w-[400px] w-[60%] mx-auto flex flex-col align-middle justify-between">
+      <div className="h-full min-w-[400px] w-[60%] mx-auto flex flex-col align-middle justify-between max-w-[1000px] ">
         <div className="topsection flex justify-between items-center p-4 ">
-          <h1 className="text-2xl text-white">Childhelp Assistant</h1>
-          {/* <div className="flex gap-4">
-            <button className="text-white">Home</button>
-            <button className="text-white">About</button>
-            <button className="text-white">Contact</button>
-          </div> */}
+          <h1 className=" hidden md:block text-2xl text-white">
+            Childhelp Assistant
+          </h1>
         </div>
 
         {/* Greeting Section */}
         <div className="items-center text-center mt-6 mb-4">
-          <h1 className="text-4xl text-white">Hi there,</h1>
-          <h2 className="text-2xl text-gray-400">
+          <h1 className="text-3xl text-white">Hi there,</h1>
+          <h2 className="text-xl text-gray-400">
             What would you like to know?
           </h2>
 
           {/* Form for API key */}
-          <div className="flex justify-center gap-4 mt-4">
+          <div className="flex justify-center gap-4 mt-6">
             <input
               type="text"
               placeholder="Enter your API key"
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}
-              className="w-full max-w-[300px] py-2 px-4 bg-[#333333] text-white rounded-md border-none focus:ring-2 focus:ring-blue-500"
+              className={`py-3 px-5 text-white rounded-lg shadow-lg transition-all duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-blue-500 ${
+                submitted
+                  ? "w-[150px] max-w-[150px] bg-[#2b2b2b]"
+                  : "w-full max-w-[320px] bg-[#1e1e1e]"
+              }`}
             />
             <button
-              className="px-4 py-2 bg-[#0057b7] text-white rounded-md hover:bg-[#0077c7] transition-all"
-              onClick={() => console.log("API Key submitted:", apiKey)}
+              className="px-6 py-3 bg-[#0057b7] text-white rounded-lg shadow-lg hover:bg-[#0077c7] hover:shadow-xl transition-all duration-300 ease-in-out"
+              onClick={handleSubmit}
             >
               Submit
             </button>
