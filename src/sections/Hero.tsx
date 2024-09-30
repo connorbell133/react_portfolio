@@ -38,9 +38,9 @@ export const Hero = () => {
               Generative AI, and Data Engineering.
             </p>
             <div className="flex gap-1 items-center mt-[30px]">
-              <Link href="/chat">
+              {/* <Link href="/chat">
                 <button className="btn btn-primary">Chat With My AI</button>
-              </Link>
+              </Link> */}
               <Link href="/about">
                 <button className="btn btn-text gap-1">
                   <span>My Projects</span>

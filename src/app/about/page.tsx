@@ -341,13 +341,12 @@ export default function About() {
             },
           ],
           summary:
-            "AI Solutions Engineer at Accenture Security with a passion for building scalable, AI-driven platforms that drive innovation and enhance security. \n\nI specialize in backend development, cloud platforms, and Multi-Model Systems.  I'm deeply interested in researching Agentic Frameworks to push the boundaries of technology.",
-          headline:
-            "AI @ Accenture Security\nGenerative AI, Cloud Engineering, Cybersecurity",
+            "AI Solutions Engineer with a passion for building scalable, AI-driven platforms that drive innovation and enhance security. I specialize in Agentic Systems, RAG, Cloud Applications, and Multi-Model Systems.",
+          headline: "AI @ Accenture Security",
           geo: {
             country: "United States",
             city: "Seattle, Washington",
-            full: "Seattle, Washington, United States",
+            full: "Agentic Systems, RAG, Generative AI",
           },
           languages: null,
           educations: [
@@ -392,12 +391,12 @@ export default function About() {
                 "https://media.licdn.com/dms/image/v2/D560BAQGmlDR0g_2XIg/company-logo_400_400/company-logo_400_400/0/1688575032847/avanade_logo?e=1735776000\u0026v=beta\u0026t=5sLkyijDso1WJhsdN24zIQyW6kMA9pBEZqNrBqEXdSg",
               companyIndustry: "Information Technology \u0026 Services",
               companyStaffCountRange: "10001 - 0",
-              title: "Back End Developer",
+              title: "Backend Developer",
               multiLocaleTitle: { en_US: "Back End Developer" },
               multiLocaleCompanyName: { en_US: "Avanade" },
               location: "Seattle, Washington, United States",
               description:
-                "Built a data loss prevention platform for a Fortune 50 company using Azure Databricks and ETL for log data, and developed a generative AI security platform for a Fortune 100 company using RAG for cyber threat analysis, leading both projects to production.",
+                "Backend Developer focusing on Data Loss Prevention and Generative AI Security Applications",
               employmentType: "Full-time",
               start: { year: 2023, month: 10, day: 0 },
               end: { year: 2024, month: 5, day: 0 },
@@ -411,7 +410,7 @@ export default function About() {
                 "https://media.licdn.com/dms/image/v2/D560BAQGmlDR0g_2XIg/company-logo_400_400/company-logo_400_400/0/1688575032847/avanade_logo?e=1735776000\u0026v=beta\u0026t=5sLkyijDso1WJhsdN24zIQyW6kMA9pBEZqNrBqEXdSg",
               companyIndustry: "Information Technology \u0026 Services",
               companyStaffCountRange: "10001 - 0",
-              title: "Software Engineering Intern",
+              title: "SWE Intern",
               multiLocaleTitle: { en_US: "Software Engineering Intern" },
               multiLocaleCompanyName: { en_US: "Avanade" },
               location: "Seattle, Washington, United States",

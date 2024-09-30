@@ -11,7 +11,6 @@ export async function POST() {
     const requestBody = {
       type: "list",
     };
-
     // Make the POST request to the external API
     const response = await fetch(apiUrl, {
       method: "POST",
@@ -32,7 +31,7 @@ export async function POST() {
 
     // Parse the JSON response
     const articles = await response.json();
-
+    console.log("articles", articles);
     // Return the articles as a JSON response
     return NextResponse.json({
       articles: articles.articles,

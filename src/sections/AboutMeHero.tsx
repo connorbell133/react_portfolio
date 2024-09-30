@@ -5,6 +5,7 @@ import tubeImage from "@/assets/tube.png";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import Link from "next/link";
 
 export const AboutMeHero = () => {
   const sectionRef = useRef(null);
@@ -38,23 +39,25 @@ export const AboutMeHero = () => {
                 <span>Seattle, Wa</span>
               </p>
               <div className="mt-8">
-                <button className="btn btn-primary">Download CV</button>
+                <Link href="https://www.linkedin.com/in/connorbell13/">
+                  <button className="btn btn-primary">View LinkedIn</button>
+                </Link>
               </div>
             </div>
             <div className="mt-5 sm:w-full m:w-1/2">
               <p className="text-lg text-gray-600">
                 <span>
-                  Connor is a driven and skilled Software Engineer who is
-                  passionate about using my technical expertise and industry
-                  knowledge to create applications and software that simplify
-                  and enhance the lives of commercial businesses and consumers.
+                  AI Solutions Engineer with a passion for building scalable,
+                  AI-driven platforms that drive innovation and enhance
+                  security. I specialize in Agentic Systems, RAG, Cloud
+                  Applications, and Multi-Model Systems.
                 </span>
                 <br />
                 <br />
                 <span>
-                  With a focus on Back end Development, cyber threat resilience,
-                  and Generative AI, I am confident in my ability to make a
-                  meaningful impact in our ever changing world today.
+                  With experience in Backend Development, Agentic AI, and
+                  Complex RAG Systems, I am confident in my ability to make a
+                  meaningful impact in the everchanging world of AI.
                 </span>
               </p>
             </div>

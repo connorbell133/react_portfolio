@@ -29,14 +29,14 @@ export const BlogMenu: React.FC<BlogMenuProps> = ({ blogPosts }) => {
                 <li key={idx} className="group">
                   <a
                     href={post.href}
-                    className="block p-8 bg-white rounded-xl shadow-md transition duration-300 hover:shadow-lg hover:bg-gray-100"
+                    className="block p-5 rounded-xl transition duration-300 hover:shadow-lg hover:bg-gray-100"
                   >
                     <article className="space-y-4">
                       <dl className="text-sm text-gray-500">
                         <dt className="sr-only">Published on</dt>
                         <dd>{post.date}</dd>
                       </dl>
-                      <h2 className="text-2xl font-semibold text-gray-800 group-hover:text-gray-900 transition duration-300">
+                      <h2 className="text-xl font-semibold text-gray-800 group-hover:text-gray-900 transition duration-300">
                         {post.title}
                       </h2>
                       <p className="text-gray-600 leading-relaxed line-clamp-3">

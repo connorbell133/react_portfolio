@@ -326,10 +326,10 @@ export const LinkedIn: React.FC<LinkedInProps> = ({ linkedinInfo }) => {
   } = linkedinInfo.data;
 
   return (
-    <div className="container mx-auto px-6 py-8 space-y-16">
+    <div className="container mx-auto px-0 m:px-6 py-8 space-y-6">
       {/* Profile Header */}
       <div className="flex flex-col items-center space-y-6">
-        <div className="w-36 h-36 relative overflow-hidden rounded-full shadow-md">
+        <div className="w-36 h-36 relative overflow-hidden rounded-full ">
           <Image
             src={profilePicture}
             alt={`${firstName} ${lastName} profile picture`}
@@ -348,13 +348,52 @@ export const LinkedIn: React.FC<LinkedInProps> = ({ linkedinInfo }) => {
       </div>
 
       {/* Profile Summary */}
-      <div className="bg-gray-50 shadow-md p-6 rounded-lg max-w-4xl mx-auto">
-        <h2 className="text-2xl font-semibold text-gray-900 mb-4">Summary</h2>
+      <div className="  p-6 rounded-lg max-w-4xl mx-auto">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4">About Me</h2>
         <p className="text-lg text-gray-700 leading-relaxed">{summary}</p>
       </div>
 
+      {/* My Theory */}
+      <div className="  p-6 rounded-lg max-w-4xl mx-auto">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+          My Vision for AI
+        </h2>
+        <p className="text-lg text-gray-700 leading-relaxed">
+          <span>
+            In today's rapidly evolving AI landscape, as leading companies like
+            OpenAI, Amazon, and Google continue to train cutting-edge models,
+            the true differentiators will be twofold: the ability to leverage
+            Agentic Systems that autonomously execute workflows, and the mastery
+            of Retrieval-Augmented Generation (RAG) paired with advanced data
+            engineering.
+          </span>
+          <br />
+          <br />
+          <span>
+            <strong>Agentic Systems</strong>, which allow models to act
+            independently on tasks, will enable businesses to scale automation
+            and decision-making in ways that static systems cannot.
+            <br />
+            <br />
+            The integration of real-time{" "}
+            <strong>Retrieval-Augmented Generation (RAG)</strong>—enabling AI to
+            connect with and retrieve up-to-date, domain-specific
+            information—will ensure that models are not only powerful but also
+            contextually aware and accurate.
+            <br />
+            <br />
+            Finally, seamless <strong>data pipelines</strong> combined with
+            robust
+            <strong>data exploration</strong> capabilities will become
+            essential. These will allow organizations to extract meaningful
+            insights from their data while ensuring systems can act on that
+            information efficiently and dynamically.
+          </span>
+        </p>
+      </div>
+
       {/* Experience Section */}
-      <div className="bg-gray-50 shadow-md p-6 rounded-lg max-w-4xl mx-auto">
+      <div className="  p-6 rounded-lg max-w-4xl mx-auto">
         <h2 className="text-2xl font-semibold text-gray-900 mb-6">
           Experience
         </h2>
@@ -375,7 +414,7 @@ export const LinkedIn: React.FC<LinkedInProps> = ({ linkedinInfo }) => {
       </div>
 
       {/* Education Section */}
-      <div className="bg-gray-50 shadow-md p-6 rounded-lg max-w-4xl mx-auto">
+      <div className="  p-6 rounded-lg max-w-4xl mx-auto">
         <h2 className="text-2xl font-semibold text-gray-900 mb-6">Education</h2>
         <div className="space-y-6">
           {educations.map((edu, index) => (
@@ -396,7 +435,7 @@ export const LinkedIn: React.FC<LinkedInProps> = ({ linkedinInfo }) => {
       </div>
 
       {/* Certifications Section */}
-      <div className="bg-gray-50 shadow-md p-6 rounded-lg max-w-4xl mx-auto">
+      <div className="  p-6 rounded-lg max-w-4xl mx-auto">
         <h2 className="text-2xl font-semibold text-gray-900 mb-6">
           Certifications
         </h2>
@@ -414,7 +453,7 @@ export const LinkedIn: React.FC<LinkedInProps> = ({ linkedinInfo }) => {
       </div>
 
       {/* Projects Section
-      <div className="bg-gray-50 shadow-md p-6 rounded-lg max-w-4xl mx-auto">
+      <div className="  p-6 rounded-lg max-w-4xl mx-auto">
         <h2 className="text-2xl font-semibold text-gray-900 mb-6">Projects</h2>
         <div className="space-y-6">
           {projects.items.map((project, index) => (
@@ -432,7 +471,7 @@ export const LinkedIn: React.FC<LinkedInProps> = ({ linkedinInfo }) => {
       </div> */}
 
       {/* Volunteering Section */}
-      <div className="bg-gray-50 shadow-md p-6 rounded-lg max-w-4xl mx-auto">
+      <div className="  p-6 rounded-lg max-w-4xl mx-auto">
         <h2 className="text-2xl font-semibold text-gray-900 mb-6">
           Volunteering
         </h2>
@@ -451,7 +490,7 @@ export const LinkedIn: React.FC<LinkedInProps> = ({ linkedinInfo }) => {
       </div>
 
       {/* Skills Section */}
-      <div className="bg-gray-50 shadow-md p-6 rounded-lg max-w-4xl mx-auto">
+      <div className="  p-6 rounded-lg max-w-4xl mx-auto">
         <h2 className="text-2xl font-semibold text-gray-900 mb-6">Skills</h2>
         <div className="flex flex-wrap gap-2">
           {skills.slice(0, 10).map((skill, index) => (

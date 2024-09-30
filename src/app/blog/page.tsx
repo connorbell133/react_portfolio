@@ -71,17 +71,6 @@ export default function About() {
       {error && <p>Error: {error}</p>}
 
       <BlogMenu blogPosts={blogPosts} />
-      {/* {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
-      <div>
-        {blogPosts.map((post) => (
-          <div key={post.href}>
-            <h2>{post.title}</h2>
-            <a href={post.href}>{post.url}</a>
-            <p>{post.date}</p>
-          </div>
-        ))}
-      </div> */}
       <Footer />
     </div>
   );
