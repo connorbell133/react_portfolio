@@ -145,19 +145,32 @@ export const Chat = () => {
           body: JSON.stringify({ prompt: inputText }),
         });
 
-        const data = await response.json();
+        if (!response.body) throw new Error("No response body");
 
-        if (response.ok) {
-          const botMessage: Message = {
-            id: Date.now().toString(), // Ensure you have a function to generate unique IDs
-            text: data.message,
-            sender: "bot",
-            message: data.message,
-          };
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let botMessage: Message = {
+          id: Date.now().toString(),
+          text: "",
+          sender: "bot",
+          message: "",
+        };
 
-          setMessages((prevMessages) => [...prevMessages, botMessage]);
-        } else {
-          console.error("Error generating response:", data.error);
+        setMessages((prevMessages) => [...prevMessages, botMessage]);
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const chunk = decoder.decode(value, { stream: true });
+          botMessage.text += chunk;
+          botMessage.message += chunk;
+
+          setMessages((prevMessages) =>
+            prevMessages.map((msg) =>
+              msg.id === botMessage.id ? botMessage : msg
+            )
+          );
         }
       } catch (error) {
         console.error("Error:", error);
@@ -186,24 +199,38 @@ export const Chat = () => {
         body: JSON.stringify({ prompt: recPrompt }),
       });
 
-      const data = await response.json();
+      if (!response.body) throw new Error("No response body");
 
-      if (response.ok) {
-        const botMessage = {
-          text: data.message,
-          sender: "bot",
-          message: data.message,
-          id: Date.now().toString(),
-        };
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let botMessage = {
+        text: "",
+        sender: "bot",
+        message: "",
+        id: Date.now().toString(),
+      };
 
-        setMessages((prevMessages) => [...prevMessages, botMessage]);
-      } else {
-        console.error("Error generating response:", data.error);
+      setMessages((prevMessages) => [...prevMessages, botMessage]);
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value, { stream: true });
+        botMessage.text += chunk;
+        botMessage.message += chunk;
+
+        setMessages((prevMessages) =>
+          prevMessages.map((msg) =>
+            msg.id === botMessage.id ? botMessage : msg
+          )
+        );
       }
     } catch (error) {
       console.error("Error:", error);
     }
   };
+
   // Handle click on recommended prompt buttons
   const handlePromptClick = (promptText: string) => {
     sendRecMessage(promptText);

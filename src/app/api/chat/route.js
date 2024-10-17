@@ -22,15 +22,29 @@ export async function POST(req) {
       );
     }
 
-    // Make the request to OpenAI API
+    // Make the request to OpenAI API with streaming enabled
     const chatCompletion = await client.chat.completions.create({
       messages: [{ role: "user", content: prompt }],
       model: "gpt-3.5-turbo",
+      stream: true,
     });
-    console.log(chatCompletion);
-    // Return the response content as JSON
-    return NextResponse.json({
-      message: chatCompletion.choices[0].message.content,
+
+    // Create a ReadableStream to handle the streaming response
+    const stream = new ReadableStream({
+      async start(controller) {
+        for await (const chunk of chatCompletion) {
+          // Send each chunk to the client
+          controller.enqueue(
+            new TextEncoder().encode(chunk.choices[0].delta.content)
+          );
+        }
+        controller.close();
+      },
+    });
+
+    // Return the streaming response
+    return new Response(stream, {
+      headers: { "Content-Type": "text/event-stream" },
     });
   } catch (error) {
     console.error("Error with OpenAI API:", error);
