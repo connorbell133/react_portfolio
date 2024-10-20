@@ -4,6 +4,10 @@ import ArrowRight from "@/assets/arrow-right.svg";
 import { twMerge } from "tailwind-merge";
 import ReactMarkdown from "react-markdown";
 import { TextBox } from "@/components/chat_components/textbox";
+import { Spotlight } from "@/components/chat_components/Spotlight";
+import { LinkPreview } from "@/components/chat_components/LinkPreview";
+import remarkGfm from "remark-gfm";
+
 // ChatBox component
 interface ChatBoxProps {
   messages: Array<{
@@ -14,6 +18,57 @@ interface ChatBoxProps {
   }>;
 }
 
+// Function to parse message and replace links with LinkPreview components
+// Function to parse message and replace links with LinkPreview components
+const parseMessageWithLinks = (message: string) => {
+  const urlRegex = /(\[([^\]]+)\]\((https?:\/\/[^\s]+)\))|(https?:\/\/[^\s]+)/g;
+  const elements: (string | JSX.Element)[] = [];
+  let lastIndex = 0;
+
+  message.replace(
+    urlRegex,
+    (match, markdownLink, text, url, plainUrl, offset) => {
+      // Add text before the match
+      if (offset > lastIndex) {
+        elements.push(message.substring(lastIndex, offset));
+      }
+
+      if (markdownLink) {
+        // Handle markdown link
+        elements.push(
+          <LinkPreview
+            key={offset}
+            url={url}
+            className="font-bold bg-clip-text text-transparent bg-gradient-to-br from-purple-500 to-pink-500"
+          >
+            {text}
+          </LinkPreview>
+        );
+      } else if (plainUrl) {
+        // Handle plain URL
+        elements.push(
+          <LinkPreview
+            key={offset}
+            url={plainUrl}
+            className="font-bold bg-clip-text text-transparent bg-gradient-to-br from-purple-500 to-pink-500"
+          >
+            {plainUrl}
+          </LinkPreview>
+        );
+      }
+
+      lastIndex = offset + match.length;
+      return match;
+    }
+  );
+
+  // Add remaining text after the last match
+  if (lastIndex < message.length) {
+    elements.push(message.substring(lastIndex));
+  }
+
+  return elements;
+};
 interface Message {
   id: string;
   text: string;
@@ -22,37 +77,54 @@ interface Message {
 }
 
 const cleanMarkdown = (text: string) => {
-  return text.replace(/```markdown([\s\S]*?)```/g, "$1");
+  // add ```markdown to the
+  return text.replace(/```([\s\S]*?)```/g, "$1");
 };
 
 const ChatBox = ({ messages }: { messages: Message[] }) => {
   return (
-    <div className="p-4 text-sm md:text-l h-[60%]  overflow-y-auto text-white">
-      {messages.map((msg) => (
-        <div
-          key={msg.id}
-          className={`flex my-2 ${
-            msg.sender === "bot" ? "justify-start" : "justify-end"
-          }`}
-        >
+    messages.length > 0 && (
+      <div className="p-4 text-sm md:text-l min-h-[60%] overflow-y-auto text-white">
+        {messages.map((message, index) => (
           <div
-            className={`${
-              msg.sender === "bot"
-                ? " text-left rounded-xl p-4  leading-6 md:leading-7"
-                : "bg-[#666a6d]/60 text-right rounded-xl md:rounded-full w-fit px-5 py-2  leading-6 md:leading-7"
+            key={index}
+            className={`flex my-2 ${
+              message.sender === "user" ? "justify-end" : "justify-start"
             }`}
           >
-            {msg.sender === "bot" ? (
-              <ReactMarkdown className="prose prose-invert max-w-none text-white ">
-                {cleanMarkdown(msg.text)}
+            <div
+              className={`${
+                message.sender === "user"
+                  ? "bg-[#666a6d]/60 text-right rounded-xl md:rounded-full w-fit px-5 py-2 leading-6 md:leading-7"
+                  : "text-left rounded-xl p-4 leading-6 md:leading-7"
+              }`}
+            >
+              <span className="text-gray-500 text-sm">
+                {message.sender === "user" ? "You" : "Connors Assistant"}
+              </span>
+              <br />
+              {/* {parseMessageWithLinks(cleanMarkdown(message.text))} */}
+              <ReactMarkdown
+                className="prose prose-invert max-w-none text-white" // `prose` enables styling for Markdown
+                remarkPlugins={[remarkGfm]} // Use remarkGfm for extended Markdown like tables and strikethrough
+                components={{
+                  a: ({ href, children }) => (
+                    <LinkPreview
+                      url={href!}
+                      className="font-bold bg-clip-text text-transparent bg-gradient-to-br from-purple-500 to-pink-500"
+                    >
+                      {children}
+                    </LinkPreview>
+                  ),
+                }}
+              >
+                {message.text}
               </ReactMarkdown>
-            ) : (
-              <p className="text-white">{msg.text}</p>
-            )}
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    )
   );
 };
 
@@ -138,35 +210,50 @@ export const Chat = () => {
   const sendMessage = async () => {
     if (inputText.trim()) {
       const newMessage: Message = {
-        id: Date.now().toString(),
+        id: Date.now().toString(), // Generate a unique id based on timestamp or use a proper UUID
         text: inputText,
-        message: inputText,
+        message: inputText, // Assuming 'message' is the same as 'text' here
         sender: "user",
       };
+      console.log("Sending message:", newMessage);
       setMessages((prevMessages) => [...prevMessages, newMessage]);
-      setInputText("");
+      setInputText(""); // Clear input field after sending
 
       try {
-        const response = await fetch("/api/studio/ch_chat", {
+        const response = await fetch("/api/chat", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ prompt: inputText, key: apiKey }),
+          body: JSON.stringify({ prompt: inputText }),
         });
 
-        const data = await response.json();
+        if (!response.body) throw new Error("No response body");
 
-        if (response.ok) {
-          const botMessage: Message = {
-            id: Date.now().toString(),
-            text: data.response,
-            sender: "bot",
-            message: data.response,
-          };
-          setMessages((prevMessages) => [...prevMessages, botMessage]);
-        } else {
-          console.error("Error generating response:", data.error);
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let botMessage: Message = {
+          id: Date.now().toString(),
+          text: "",
+          sender: "bot",
+          message: "",
+        };
+
+        setMessages((prevMessages) => [...prevMessages, botMessage]);
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const chunk = decoder.decode(value, { stream: true });
+          botMessage.text += chunk;
+          botMessage.message += chunk;
+
+          setMessages((prevMessages) =>
+            prevMessages.map((msg) =>
+              msg.id === botMessage.id ? botMessage : msg
+            )
+          );
         }
       } catch (error) {
         console.error("Error:", error);
@@ -175,22 +262,11 @@ export const Chat = () => {
   };
 
   return (
-    <section className="h-screen w-screen flex-col overflow-hidden bg-[#212121]">
+    <section className="h-screen w-screen flex-col overflow-hidden bg-black/[0.96]">
       <div className="h-full min-w-[400px] w-[60%] mx-auto flex flex-col align-middle justify-between max-w-[1000px] ">
-        <div className="topsection flex justify-between items-center p-4 ">
-          <h1 className=" hidden md:block text-2xl text-white">
-            Childhelp Assistant
-          </h1>
-        </div>
-
         {/* Greeting Section */}
         <div className="items-center text-center mt-6 mb-4">
-          <h1 className="text-3xl text-white">Hi there,</h1>
-          <h2 className="text-xl text-gray-400">
-            What would you like to know?
-          </h2>
-
-          {/* Form for API key */}
+          {/* Form for API key
           <div className="flex justify-center gap-4 mt-6">
             <input
               type="text"
@@ -209,7 +285,7 @@ export const Chat = () => {
             >
               Submit
             </button>
-          </div>
+          </div> */}
         </div>
 
         {/* ChatBox */}
